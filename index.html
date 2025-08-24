@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O.P. Veteran</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .nav-item {
+            position: relative;
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            background-color: #1f2937;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 0.5rem;
+        }
+        .nav-item:hover .dropdown {
+            display: block;
+        }
+        .dropdown a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-radius: 0.5rem;
+        }
+        .dropdown a:hover {
+            background-color: #374151;
+        }
+        section {
+            scroll-margin-top: 80px; /* Offset for sticky header */
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Header & Navigation -->
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold text-white">O.P. Veteran</a>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#home" class="hover:text-yellow-400">Home</a>
+                <div class="nav-item">
+                    <button class="hover:text-yellow-400 focus:outline-none">The Organization <i class="fas fa-chevron-down fa-xs"></i></button>
+                    <div class="dropdown">
+                        <a href="#about-us">About Us</a>
+                        <a href="#financials">Financials</a>
+                        <a href="#in-the-media">In The Media</a>
+                        <a href="#meet-the-team">Meet The Team</a>
+                        <a href="#partnerships">Partnerships</a>
+                        <a href="#contact-us">Contact Us</a>
+                    </div>
+                </div>
+                 <a href="#" class="hover:text-yellow-400">Garrison Retreats</a>
+                 <a href="#" class="hover:text-yellow-400">Get Involved</a>
+                 <a href="#" class="hover:text-yellow-400">O.P. Vetfest</a>
+                <a href="#" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-full transition duration-300">Donate</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden flex items-center">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#home" class="block py-2 hover:text-yellow-400">Home</a>
+            <a href="#about-us" class="block py-2 hover:text-yellow-400">About Us</a>
+            <a href="#financials" class="block py-2 hover:text-yellow-400">Financials</a>
+            <a href="#in-the-media" class="block py-2 hover:text-yellow-400">In The Media</a>
+            <a href="#meet-the-team" class="block py-2 hover:text-yellow-400">Meet The Team</a>
+            <a href="#partnerships" class="block py-2 hover:text-yellow-400">Partnerships</a>
+            <a href="#contact-us" class="block py-2 hover:text-yellow-400">Contact Us</a>
+            <a href="#" class="block mt-2 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-full transition duration-300 text-center">Donate</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="bg-gray-900 text-white text-center py-20 px-6" style="background-image: url('https://placehold.co/1200x600/111827/374151?text=Veterans+Together'); background-size: cover; background-position: center;">
+            <div class="bg-black bg-opacity-50 rounded-lg p-10">
+                <h1 class="text-5xl font-bold mb-4">Welcome to O.P. Veteran</h1>
+                <p class="text-xl mb-8">Taking care of our own. Reconnecting and supporting our nation's heroes.</p>
+                <a href="#" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-8 rounded-full text-lg transition duration-300">Join Our Community</a>
+            </div>
+        </section>
+        
+        <!-- Pillars of Support -->
+        <section class="py-20 bg-gray-800">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold mb-12">Our Pillars of Support</h2>
+                <div class="grid md:grid-cols-3 gap-12">
+                    <div class="bg-gray-900 p-8 rounded-lg shadow-xl transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-yellow-400 mb-4"><i class="fas fa-users fa-3x"></i></div>
+                        <h3 class="text-2xl font-bold mb-4">Social Connection</h3>
+                        <p class="text-gray-400">Reconnect with fellow veterans through online communities, social media groups, and local events. Find your tribe.</p>
+                    </div>
+                    <div class="bg-gray-900 p-8 rounded-lg shadow-xl transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-yellow-400 mb-4"><i class="fas fa-hands-helping fa-3x"></i></div>
+                        <h3 class="text-2xl font-bold mb-4">Community Involvement</h3>
+                        <p class="text-gray-400">Get involved in your local community. Volunteering or joining a club is a great way to meet new people with shared passions.</p>
+                    </div>
+                    <div class="bg-gray-900 p-8 rounded-lg shadow-xl transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-yellow-400 mb-4"><i class="fas fa-brain fa-3x"></i></div>
+                        <h3 class="text-2xl font-bold mb-4">Mental Health</h3>
+                        <p class="text-gray-400">Seeking help is a sign of strength. We provide resources and support for the mental well-being of our veterans.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upcoming Events -->
+        <section class="py-20 bg-gray-900">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12">Upcoming Events</h2>
+                <div class="grid md:grid-cols-2 gap-12 items-stretch">
+                    <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden flex flex-col">
+                        <img src="https://placehold.co/600x400/374151/FFFFFF?text=Game+Night" alt="Game Night" class="w-full h-64 object-cover">
+                        <div class="p-8 flex flex-col flex-grow">
+                            <h3 class="text-2xl font-bold mb-4">Game Night</h3>
+                            <p class="text-gray-400 mb-6 flex-grow">A monthly event for veterans and their families to connect, have fun, and relax. Join us for fellowship and games!</p>
+                            <a href="#" class="mt-auto bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-6 rounded-full transition duration-300 self-start">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden flex flex-col">
+                        <img src="https://placehold.co/600x400/374151/FFFFFF?text=Thirsty+Thursday" alt="Thirsty Thursday" class="w-full h-64 object-cover">
+                        <div class="p-8 flex flex-col flex-grow">
+                            <h3 class="text-2xl font-bold mb-4">Thirsty Thursday</h3>
+                            <p class="text-gray-400 mb-6 flex-grow">A laid-back evening to network and support one another in the veteran community. Food and snacks provided by Pint House Pizza.</p>
+                            <a href="#" class="mt-auto bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-6 rounded-full transition duration-300 self-start">Register Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about-us" class="py-20 bg-gray-800">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12">About Us</h2>
+                <div class="bg-gray-900 p-8 md:p-12 rounded-lg shadow-xl max-w-4xl mx-auto text-gray-300 leading-relaxed">
+                    <div class="mb-8">
+                        <h3 class="text-3xl font-bold mb-4 text-yellow-400">Our Story</h3>
+                        <p class="mb-4">In late 2015, founder Denny Katona was approached about seeking a corporate donation for the Corporal Chad Eric Oligschlaeger Foundation for PTSD. Denny had previously undergone EMDR therapy for post-traumatic stress, funded by the Cpl Chad O Foundation. Seeking to give back to the organization that helped him find life after the trauma. Not satisfied with simply getting a donation, Denny put together the first Spring Kickoff event, held in April 2016. Resourcing sponsorship, prizes, and entertainment for the event, his team was able to successfully raise $7700 for the Foundation.</p>
+                        <p class="mb-4">During the weeks leading up to and following the event, Denny was immersed in networking, to, make sure the event was a success. He began to learn more and more about different organizations and the immense Veteran Community just within the Greater Austin area. From that discovery, the very first VetFest was born, bringing together close to 50 different Veteran organizations and businesses all for Austin area Veterans in November of 2016. Based upon the feedback received from both vendors and attendees, and their desire to see VetFest continue, Denny founded O.P. Veteran.</p>
+                        <p class="mb-4">Since its founding, O.P. Veteran continues to grow and evolve, while staying true to its focus of easing the emotional transition by helping Veterans find a post-military passion and purpose. Spring Kickoff now boasts a formal beneficiary package, and O.P. VetFest has grown to be the largest outdoor veteran event of its kind within the Great State of Texas, as well as hosting numerous Veteran Engagement events throughout the year such as RED Fridays and the Flag Day Freedom Float.</p>
+                        <p>Starting discussions in 2019 and formalizing the decision in August of 2020, Garrison Retreats, a 4-day resiliency focused retreat, merged into the organization to become a program of O.P. Veteran. Looking forward into the future, O.P. Veteran looks to follow this model in order to empower both organizations and individuals in pursuing their veteran serving passion by bringing them under the organizational umbrella while continuing to pursue its own inherently organic programs.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div>
+                             <h3 class="text-3xl font-bold mb-4 text-yellow-400">Mission</h3>
+                             <p>Utilize a post military passion to ease emotional transition of Veterans.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-3xl font-bold mb-4 text-yellow-400">Vision</h3>
+                            <p>Veterans successfully integrated back into civilian life with a renewed sense of purpose.</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-8">
+                        <h3 class="text-3xl font-bold mb-4 text-yellow-400">Guiding Principles</h3>
+                        <p class="mb-4">Upon separation from the military, Veterans often face a loss of self, belonging, and purpose. Veterans are indoctrinated to “suck up” their trauma rather than seeking appropriate care. Trauma is an injury like any other; and can be healed with the proper treatment. O.P. Veteran eases the emotional transition of Veterans by executing programs focused on Veteran social, mental, and community well-being.</p>
+                        <p>Promote veteran volunteerism to both build and strengthen the Veteran Community while providing a sense of purpose often missing from veterans’ post-military lives.</p>
+                    </div>
+                    
+                    <p class="text-right italic text-yellow-400">- Denny Katona, O.P. Veteran Founder</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Other Organization Sections (Placeholders) -->
+        <section id="financials" class="py-20 bg-gray-900"><div class="container mx-auto px-6 text-center"><h2 class="text-4xl font-bold">Financials</h2><p class="text-gray-400 mt-4">Content for this page will be added soon.</p></div></section>
+        <section id="in-the-media" class="py-20 bg-gray-800"><div class="container mx-auto px-6 text-center"><h2 class="text-4xl font-bold">In The Media</h2><p class="text-gray-400 mt-4">Content for this page will be added soon.</p></div></section>
+        <section id="meet-the-team" class="py-20 bg-gray-900"><div class="container mx-auto px-6 text-center"><h2 class="text-4xl font-bold">Meet The Team</h2><p class="text-gray-400 mt-4">Content for this page will be added soon.</p></div></section>
+        <section id="partnerships" class="py-20 bg-gray-800"><div class="container mx-auto px-6 text-center"><h2 class="text-4xl font-bold">Partnerships</h2><p class="text-gray-400 mt-4">Content for this page will be added soon.</p></div></section>
+        <section id="contact-us" class="py-20 bg-gray-900"><div class="container mx-auto px-6 text-center"><h2 class="text-4xl font-bold">Contact Us</h2><p class="text-gray-400 mt-4">Content for this page will be added soon.</p></div></section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 border-t border-gray-700">
+        <div class="container mx-auto py-12 px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul>
+                        <li class="mb-2"><a href="#about-us" class="hover:text-yellow-400">About Us</a></li>
+                        <li class="mb-2"><a href="#contact-us" class="hover:text-yellow-400">Contact Us</a></li>
+                        <li class="mb-2"><a href="#" class="hover:text-yellow-400">Shop</a></li>
+                        <li class="mb-2"><a href="#" class="hover:text-yellow-400">Calendar</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Get Involved</h4>
+                    <ul>
+                        <li class="mb-2"><a href="#" class="hover:text-yellow-400">Volunteer</a></li>
+                        <li class="mb-2"><a href="#" class="hover:text-yellow-400">Sponsorships</a></li>
+                        <li class="mb-2"><a href="#" class="hover:text-yellow-400">Donate</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Legal</h4>
+                    <ul>
+                        <li class="mb-2"><a href="#financials" class="hover:text-yellow-400">Financials</a></li>
+                        <li class="mb-2"><a href="#" class="hover:text-yellow-400">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-xl hover:text-yellow-400"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-xl hover:text-yellow-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-xl hover:text-yellow-400"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center text-gray-500 mt-12 pt-8 border-t border-gray-700">
+                <p>&copy; 2025 O.P. Veteran. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+</body>
+</html>
