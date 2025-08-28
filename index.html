@@ -67,6 +67,11 @@
                  <a href="store.html" class="hover:text-yellow-400">Store</a>
                  <a href="calendar.html" class="hover:text-yellow-400">Calendar</a>
                 <a href="#" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-full transition duration-300">Donate</a>
+                <!-- Cart Icon -->
+                <a href="checkout.html" class="relative text-xl hover:text-yellow-400">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </a>
             </div>
             <button id="mobile-menu-button" class="md:hidden flex items-center">
                 <i class="fas fa-bars text-2xl"></i>
@@ -273,53 +278,29 @@
 
     <!-- Footer -->
     <footer class="bg-gray-800 border-t border-gray-700">
-        <div class="container mx-auto py-12 px-6">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
-                    <ul>
-                        <li class="mb-2"><a href="#contact-us" class="hover:text-yellow-400">Contact Us</a></li>
-                        <li class="mb-2"><a href="#" class="hover:text-yellow-400">Shop</a></li>
-                        <li class="mb-2"><a href="#" class="hover:text-yellow-400">Calendar</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-bold mb-4">Get Involved</h4>
-                    <ul>
-                        <li class="mb-2"><a href="#" class="hover:text-yellow-400">Volunteer</a></li>
-                        <li class="mb-2"><a href="#" class="hover:text-yellow-400">Sponsorships</a></li>
-                        <li class="mb-2"><a href="#" class="hover:text-yellow-400">Donate</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-bold mb-4">Legal</h4>
-                    <ul>
-                        <li class="mb-2"><a href="#financials" class="hover:text-yellow-400">Financials</a></li>
-                        <li class="mb-2"><a href="#" class="hover:text-yellow-400">Privacy Policy</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-bold mb-4">Follow Us</h4>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-xl hover:text-yellow-400"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-xl hover:text-yellow-400"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-xl hover:text-yellow-400"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center text-gray-500 mt-12 pt-8 border-t border-gray-700">
-                <p>&copy; 2025 O.P. Veteran. All Rights Reserved.</p>
-            </div>
+        <div class="container mx-auto py-12 px-6 text-center text-gray-500">
+            <p>&copy; 2025 O.P. Veteran. All Rights Reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
+        // --- Shopping Cart Logic ---
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+            const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+            const cartCountElement = document.getElementById('cart-count');
+            if (cartCountElement) {
+                cartCountElement.textContent = cartCount;
+            }
+        }
 
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+        // --- General Page Logic ---
+        document.getElementById('mobile-menu-button').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
         });
 
         // Contact Form Submission
@@ -332,16 +313,9 @@
             const phone = document.getElementById('phone').value;
             const comment = document.getElementById('comment').value;
 
-            // IMPORTANT: Replace "your-email@example.com" with your actual email address
             const mailtoEmail = "your-email@example.com";
-            
             const subject = `Contact Form Submission from ${name}`;
-            
-            let body = `You have a new message from your website contact form:\n\n`;
-            body += `Name: ${name}\n`;
-            body += `Email: ${email}\n`;
-            body += `Phone: ${phone}\n\n`;
-            body += `Comment:\n${comment}`;
+            let body = `You have a new message from your website contact form:\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nComment:\n${comment}`;
             
             window.location.href = `mailto:${mailtoEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         });

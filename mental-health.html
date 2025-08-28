@@ -35,6 +35,11 @@
                  <a href="store.html" class="hover:text-yellow-400">Store</a>
                  <a href="calendar.html" class="hover:text-yellow-400">Calendar</a>
                 <a href="#" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-full transition duration-300">Donate</a>
+                <!-- Cart Icon -->
+                <a href="checkout.html" class="relative text-xl hover:text-yellow-400">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </a>
             </div>
             <button id="mobile-menu-button" class="md:hidden flex items-center"><i class="fas fa-bars text-2xl"></i></button>
         </nav>
@@ -68,8 +73,19 @@
     </footer>
 
     <script>
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+            const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+            const cartCountElement = document.getElementById('cart-count');
+            if (cartCountElement) {
+                cartCountElement.textContent = cartCount;
+            }
+        }
         document.getElementById('mobile-menu-button').addEventListener('click', () => {
             document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
         });
     </script>
 </body>
