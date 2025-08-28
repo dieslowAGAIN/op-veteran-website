@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garrison Retreats - O.P. Veteran</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .nav-item {
+            position: relative;
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            background-color: #1f2937;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 0.5rem;
+        }
+        .nav-item:hover .dropdown {
+            display: block;
+        }
+        .dropdown a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-radius: 0.5rem;
+        }
+        .dropdown a:hover {
+            background-color: #374151;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Header & Navigation -->
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-white">O.P. Veteran</a>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="index.html" class="hover:text-yellow-400">Home</a>
+                <div class="nav-item">
+                    <button class="hover:text-yellow-400 focus:outline-none">The Organization <i class="fas fa-chevron-down fa-xs"></i></button>
+                    <div class="dropdown">
+                        <a href="index.html#financials">Financials</a>
+                        <a href="index.html#in-the-media">In The Media</a>
+                        <a href="index.html#meet-the-team">Meet The Team</a>
+                        <a href="index.html#partnerships">Partnerships</a>
+                        <a href="index.html#contact-us">Contact Us</a>
+                    </div>
+                </div>
+                 <a href="garrison-retreats.html" class="text-yellow-400">Garrison Retreats</a>
+                 <a href="index.html#get-involved" class="hover:text-yellow-400">Get Involved</a>
+                 <a href="#" class="hover:text-yellow-400">O.P. Vetfest</a>
+                <a href="#" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-full transition duration-300">Donate</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden flex items-center">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="index.html" class="block py-2 hover:text-yellow-400">Home</a>
+            <a href="index.html#financials" class="block py-2 hover:text-yellow-400">Financials</a>
+            <a href="index.html#in-the-media" class="block py-2 hover:text-yellow-400">In The Media</a>
+            <a href="index.html#meet-the-team" class="block py-2 hover:text-yellow-400">Meet The Team</a>
+            <a href="index.html#partnerships" class="block py-2 hover:text-yellow-400">Partnerships</a>
+            <a href="index.html#contact-us" class="block py-2 hover:text-yellow-400">Contact Us</a>
+            <a href="garrison-retreats.html" class="block py-2 text-yellow-400">Garrison Retreats</a>
+            <a href="index.html#get-involved" class="block py-2 hover:text-yellow-400">Get Involved</a>
+            <a href="#" class="block mt-2 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-full transition duration-300 text-center">Donate</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Garrison Retreats Section -->
+        <section id="garrison-retreats" class="py-20 bg-gray-900">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12">Garrison Retreats</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                    
+                    <div class="bg-yellow-500 text-gray-900 rounded-lg shadow-xl p-8 flex flex-col justify-center items-center text-center md:col-span-2">
+                        <h3 class="text-3xl font-bold mb-4">Ready to Join a Retreat?</h3>
+                        <p class="mb-6 max-w-2xl">Our retreats are designed to help veterans reconnect, build resilience, and find a renewed sense of purpose. Click the button below to sign up for our next available retreat.</p>
+                        <a href="YOUR_MICROSOFT_FORM_LINK_HERE" target="_blank" rel="noopener noreferrer" class="bg-gray-900 hover:bg-gray-800 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">
+                            Sign Up Now
+                        </a>
+                    </div>
+
+                    <div class="bg-gray-800 rounded-lg shadow-xl p-8">
+                        <h3 class="text-2xl font-bold mb-4 text-yellow-400">About Our Retreats</h3>
+                        <p class="text-gray-400 leading-relaxed">
+                            Garrison Retreats are 4-day, resiliency-focused experiences that provide a unique opportunity for veterans to connect with peers in a safe and supportive environment. Through a combination of workshops, outdoor activities, and shared experiences, we aim to empower veterans on their journey to post-military life.
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden">
+                        <img src="https://placehold.co/600x400/374151/FFFFFF?text=Retreat+Photo" alt="Garrison Retreat Photo" class="w-full h-full object-cover">
+                    </div>
+
+                    <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden md:col-span-2">
+                        <div class="relative" style="padding-top: 56.25%;">
+                            <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/VIDEO_ID_HERE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 border-t border-gray-700">
+        <div class="container mx-auto py-12 px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul>
+                        <li class="mb-2"><a href="index.html#contact-us" class="hover:text-yellow-400">Contact Us</a></li>
+                        <li class="mb-2"><a href="#" class="hover:text-yellow-400">Shop</a></li>
+                        <li class="mb-2"><a href="#" class="hover:text-yellow-400">Calendar</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Get Involved</h4>
+                    <ul>
+                        <li class="mb-2"><a href="#" class="hover:text-yellow-400">Volunteer</a></li>
+                        <li class="mb-2"><a href="#" class="hover:text-yellow-400">Sponsorships</a></li>
+                        <li class="mb-2"><a href="#" class="hover:text-yellow-400">Donate</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Legal</h4>
+                    <ul>
+                        <li class="mb-2"><a href="index.html#financials" class="hover:text-yellow-400">Financials</a></li>
+                        <li class="mb-2"><a href="#" class="hover:text-yellow-400">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-xl hover:text-yellow-400"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-xl hover:text-yellow-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-xl hover:text-yellow-400"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center text-gray-500 mt-12 pt-8 border-t border-gray-700">
+                <p>&copy; 2025 O.P. Veteran. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+</body>
+</html>
