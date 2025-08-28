@@ -7,7 +7,26 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style> body { font-family: 'Inter', sans-serif; } .nav-item { position: relative; } .dropdown { display: none; position: absolute; background-color: #1f2937; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border-radius: 0.5rem; } .nav-item:hover .dropdown { display: block; } .dropdown a { color: white; padding: 12px 16px; text-decoration: none; display: block; border-radius: 0.5rem; } .dropdown a:hover { background-color: #374151; } </style>
+    <style> 
+        body { font-family: 'Inter', sans-serif; } 
+        .nav-item { position: relative; } 
+        .dropdown { display: none; position: absolute; background-color: #1f2937; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border-radius: 0.5rem; } 
+        .nav-item:hover .dropdown { display: block; } 
+        .dropdown a { color: white; padding: 12px 16px; text-decoration: none; display: block; border-radius: 0.5rem; } 
+        .dropdown a:hover { background-color: #374151; }
+        .calendar-day {
+            transition: all 0.2s ease-in-out;
+        }
+        .calendar-day:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .event-image {
+            background-size: cover;
+            background-position: center;
+            border-radius: 0.25rem;
+        }
+    </style>
 </head>
 <body class="bg-gray-900 text-white">
 
@@ -58,9 +77,35 @@
 
     <main>
         <section class="py-20 bg-gray-800">
-            <div class="container mx-auto px-6 text-center">
-                <h1 class="text-5xl font-bold mb-4">Calendar</h1>
-                <p class="text-xl text-gray-400">Content for this page will be added soon.</p>
+            <div class="container mx-auto px-6">
+                <h1 class="text-5xl font-bold text-center mb-12">Events Calendar</h1>
+                
+                <div class="lg:flex lg:gap-x-12">
+                    <!-- Calendar Grid -->
+                    <div class="lg:flex-auto">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 id="month-year" class="text-2xl font-bold text-yellow-400"></h2>
+                            <div>
+                                <button id="prev-month" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-l-lg"><i class="fas fa-chevron-left"></i></button>
+                                <button id="next-month" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-r-lg"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-7 gap-2 text-center font-bold text-gray-400 mb-2">
+                            <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                        </div>
+                        <div id="calendar-grid" class="grid grid-cols-7 gap-2">
+                            <!-- Calendar days will be generated here -->
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Events List -->
+                    <div class="mt-12 lg:mt-0 lg:w-80 lg:flex-shrink-0">
+                        <h3 class="text-2xl font-bold mb-6 text-yellow-400">Upcoming Events</h3>
+                        <ol id="upcoming-events" class="space-y-4">
+                            <!-- Events will be listed here -->
+                        </ol>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -73,6 +118,135 @@
     </footer>
 
     <script>
+        // --- Calendar Logic ---
+        const events = [
+            // --- INSTRUCTIONS ---
+            // To add an event, copy a block below and change the details.
+            // date: 'YYYY-MM-DD'
+            // title: 'Event Name'
+            // imageUrl: 'Link to a small photo for the event'
+            // facebookLink: 'Link to the Facebook event page'
+            {
+                date: '2025-09-13',
+                title: 'Monthly Game Night',
+                imageUrl: 'https://placehold.co/100x100/1f2937/FFFFFF?text=Game',
+                facebookLink: 'https://www.facebook.com/events/example1'
+            },
+            {
+                date: '2025-09-25',
+                title: 'Thirsty Thursday Meetup',
+                imageUrl: 'https://placehold.co/100x100/1f2937/FFFFFF?text=Meetup',
+                facebookLink: 'https://www.facebook.com/events/example2'
+            },
+            {
+                date: '2025-10-11',
+                title: 'VetFest Planning Session',
+                imageUrl: 'https://placehold.co/100x100/1f2937/FFFFFF?text=Planning',
+                facebookLink: 'https://www.facebook.com/events/example3'
+            }
+        ];
+
+        let currentDate = new Date();
+
+        function renderCalendar() {
+            const calendarGrid = document.getElementById('calendar-grid');
+            const monthYearEl = document.getElementById('month-year');
+            
+            calendarGrid.innerHTML = '';
+            
+            const month = currentDate.getMonth();
+            const year = currentDate.getFullYear();
+            
+            monthYearEl.textContent = `${currentDate.toLocaleString('default', { month: 'long' })} ${year}`;
+            
+            const firstDayOfMonth = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            // Add blank days for the start of the month
+            for (let i = 0; i < firstDayOfMonth; i++) {
+                calendarGrid.innerHTML += '<div></div>';
+            }
+
+            // Add days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day bg-gray-800 p-2 rounded-lg h-28 flex flex-col';
+                
+                const dayNumber = document.createElement('span');
+                dayNumber.className = 'font-bold';
+                dayNumber.textContent = day;
+                dayEl.appendChild(dayNumber);
+
+                // Check for events on this day
+                const todayStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const dayEvents = events.filter(e => e.date === todayStr);
+
+                if (dayEvents.length > 0) {
+                    const event = dayEvents[0]; // Displaying the first event for the day
+                    const eventLink = document.createElement('a');
+                    eventLink.href = event.facebookLink;
+                    eventLink.target = '_blank';
+                    eventLink.rel = 'noopener noreferrer';
+                    eventLink.className = 'event-image mt-1 flex-grow';
+                    eventLink.style.backgroundImage = `url('${event.imageUrl}')`;
+                    
+                    const eventTitle = document.createElement('span');
+                    eventTitle.className = 'sr-only'; // Screen reader only
+                    eventTitle.textContent = event.title;
+                    eventLink.appendChild(eventTitle);
+                    
+                    dayEl.appendChild(eventLink);
+                    dayEl.classList.add('cursor-pointer');
+                    dayEl.onclick = () => window.open(event.facebookLink, '_blank');
+                }
+                
+                calendarGrid.appendChild(dayEl);
+            }
+        }
+
+        function renderUpcomingEvents() {
+            const upcomingEventsEl = document.getElementById('upcoming-events');
+            upcomingEventsEl.innerHTML = '';
+            const now = new Date();
+            now.setHours(0,0,0,0);
+
+            const sortedUpcoming = events
+                .filter(e => new Date(e.date) >= now)
+                .sort((a, b) => new Date(a.date) - new Date(b.date))
+                .slice(0, 5); // Show next 5 events
+
+            if (sortedUpcoming.length === 0) {
+                upcomingEventsEl.innerHTML = '<li><p class="text-gray-400">No upcoming events scheduled.</p></li>';
+                return;
+            }
+
+            sortedUpcoming.forEach(event => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <a href="${event.facebookLink}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-x-4 p-3 rounded-lg bg-gray-800 hover:bg-gray-700 transition">
+                        <img src="${event.imageUrl}" alt="${event.title}" class="h-12 w-12 flex-none rounded-full bg-gray-700">
+                        <div class="flex-auto">
+                            <p class="font-semibold text-white">${event.title}</p>
+                            <p class="text-gray-400">${new Date(event.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</p>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-500"></i>
+                    </a>
+                `;
+                upcomingEventsEl.appendChild(li);
+            });
+        }
+
+        document.getElementById('prev-month').addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        });
+
+        document.getElementById('next-month').addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        });
+
+        // --- General Page Logic ---
         function updateCartCount() {
             const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
             const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
@@ -86,6 +260,8 @@
         });
         document.addEventListener('DOMContentLoaded', () => {
             updateCartCount();
+            renderCalendar();
+            renderUpcomingEvents();
         });
     </script>
 </body>
