@@ -36,6 +36,10 @@
         .dropdown a:hover {
             background-color: #374151;
         }
+        .gallery-tab.active {
+            background-color: #ca8a04; /* A darker yellow */
+            color: #1f2937;
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
@@ -114,10 +118,13 @@
                         <img src="https://placehold.co/600x400/374151/FFFFFF?text=Retreat+Photo" alt="Garrison Retreat Photo" class="w-full h-full object-cover">
                     </div>
 
-                    <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden md:col-span-2">
-                        <div class="relative" style="padding-top: 56.25%;">
-                            <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/VIDEO_ID_HERE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
+                    <!-- Gallery Button Block -->
+                    <div class="bg-gray-800 rounded-lg shadow-xl p-8 text-center md:col-span-2">
+                        <h3 class="text-2xl font-bold mb-4 text-yellow-400">Retreat Memories</h3>
+                        <p class="text-gray-400 mb-6">Explore photos and videos from our past Garrison Retreats.</p>
+                        <button id="open-gallery-btn" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-8 rounded-full text-lg transition duration-300">
+                            View Gallery
+                        </button>
                     </div>
 
                 </div>
@@ -132,7 +139,144 @@
         </div>
     </footer>
 
+    <!-- Gallery Modal -->
+    <div id="gallery-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 hidden z-50">
+        <div id="gallery-content" class="bg-gray-800 rounded-lg shadow-xl w-full max-w-6xl h-full max-h-[90vh] flex flex-col">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center p-4 border-b border-gray-700 flex-shrink-0">
+                <h2 class="text-2xl font-bold text-yellow-400">Garrison Retreats Gallery</h2>
+                <button id="close-gallery-btn" class="text-gray-400 hover:text-white text-3xl">&times;</button>
+            </div>
+            <!-- Modal Body -->
+            <div class="flex-grow flex overflow-hidden">
+                <!-- Year Tabs -->
+                <div class="w-1/5 bg-gray-900 p-4 overflow-y-auto">
+                    <nav id="year-tabs" class="space-y-2">
+                       <!-- Tabs will be generated here -->
+                    </nav>
+                </div>
+                <!-- Media Content -->
+                <div id="media-content" class="w-4/5 p-6 overflow-y-auto">
+                    <!-- Media for selected year will be shown here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script>
+        // --- Gallery Modal Logic ---
+        const galleryData = {
+            // --- INSTRUCTIONS ---
+            // To add content, create a new year section.
+            // Add image URLs to the 'photos' array.
+            // Add YouTube embed URLs to the 'videos' array.
+            '2023': {
+                photos: [
+                    'https://placehold.co/600x400/374151/FFFFFF?text=2023+Photo+1',
+                    'https://placehold.co/600x400/374151/FFFFFF?text=2023+Photo+2',
+                    'https://placehold.co/600x400/374151/FFFFFF?text=2023+Photo+3',
+                ],
+                videos: [
+                    'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                ]
+            },
+            '2022': {
+                photos: [
+                    'https://placehold.co/600x400/374151/FFFFFF?text=2022+Photo+1'
+                ],
+                videos: [
+                    'https://www.youtube.com/embed/o-YBDTqX_ZU',
+                    'https://www.youtube.com/embed/QH2-TGUlwu4'
+                ]
+            },
+            '2021': {
+                photos: [
+                    'https://placehold.co/600x400/374151/FFFFFF?text=2021+Photo+1',
+                    'https://placehold.co/600x400/374151/FFFFFF?text=2021+Photo+2',
+                ],
+                videos: []
+            }
+        };
+
+        const openGalleryBtn = document.getElementById('open-gallery-btn');
+        const closeGalleryBtn = document.getElementById('close-gallery-btn');
+        const galleryModal = document.getElementById('gallery-modal');
+        const yearTabsContainer = document.getElementById('year-tabs');
+        const mediaContentContainer = document.getElementById('media-content');
+
+        function renderMedia(year) {
+            mediaContentContainer.innerHTML = '';
+            const data = galleryData[year];
+
+            if (!data) return;
+
+            // Render Videos
+            if (data.videos.length > 0) {
+                const videoHeader = document.createElement('h3');
+                videoHeader.className = 'text-2xl font-bold text-yellow-400 mb-4';
+                videoHeader.textContent = `Videos from ${year}`;
+                mediaContentContainer.appendChild(videoHeader);
+                
+                const videoGrid = document.createElement('div');
+                videoGrid.className = 'grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8';
+                data.videos.forEach(videoSrc => {
+                    videoGrid.innerHTML += `
+                        <div class="relative" style="padding-top: 56.25%;">
+                            <iframe class="absolute top-0 left-0 w-full h-full rounded-lg" src="${videoSrc}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    `;
+                });
+                mediaContentContainer.appendChild(videoGrid);
+            }
+
+            // Render Photos
+            if (data.photos.length > 0) {
+                const photoHeader = document.createElement('h3');
+                photoHeader.className = 'text-2xl font-bold text-yellow-400 mb-4';
+                photoHeader.textContent = `Photos from ${year}`;
+                mediaContentContainer.appendChild(photoHeader);
+
+                const photoGrid = document.createElement('div');
+                photoGrid.className = 'grid grid-cols-2 md:grid-cols-3 gap-4';
+                data.photos.forEach(photoSrc => {
+                    photoGrid.innerHTML += `<img src="${photoSrc}" alt="Retreat photo from ${year}" class="w-full h-auto rounded-lg shadow-md">`;
+                });
+                mediaContentContainer.appendChild(photoGrid);
+            }
+        }
+
+        function setupGallery() {
+            const years = Object.keys(galleryData).sort((a,b) => b - a); // Sort years descending
+            
+            years.forEach(year => {
+                const tab = document.createElement('button');
+                tab.className = 'gallery-tab w-full text-left font-bold py-2 px-4 rounded-lg transition';
+                tab.textContent = year;
+                tab.onclick = () => {
+                    document.querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    renderMedia(year);
+                };
+                yearTabsContainer.appendChild(tab);
+            });
+
+            // Activate the first tab by default
+            if (yearTabsContainer.firstElementChild) {
+                yearTabsContainer.firstElementChild.classList.add('active');
+                renderMedia(years[0]);
+            }
+        }
+
+        openGalleryBtn.addEventListener('click', () => galleryModal.classList.remove('hidden'));
+        closeGalleryBtn.addEventListener('click', () => galleryModal.classList.add('hidden'));
+        galleryModal.addEventListener('click', (e) => {
+            if (e.target === galleryModal) {
+                galleryModal.classList.add('hidden');
+            }
+        });
+
+
         // --- Shopping Cart Logic ---
         function updateCartCount() {
             const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
@@ -150,6 +294,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             updateCartCount();
+            setupGallery();
         });
     </script>
 
