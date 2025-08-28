@@ -170,7 +170,8 @@
             // Add days of the month
             for (let day = 1; day <= daysInMonth; day++) {
                 const dayEl = document.createElement('div');
-                dayEl.className = 'calendar-day bg-gray-800 p-2 rounded-lg h-28 flex flex-col';
+                // UPDATED: Changed bg-gray-800 to bg-gray-700 for better visibility
+                dayEl.className = 'calendar-day bg-gray-700 p-2 rounded-lg h-28 flex flex-col';
                 
                 const dayNumber = document.createElement('span');
                 dayNumber.className = 'font-bold';
