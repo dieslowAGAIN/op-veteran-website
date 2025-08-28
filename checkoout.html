@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - O.P. Veteran</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style> body { font-family: 'Inter', sans-serif; } .nav-item { position: relative; } .dropdown { display: none; position: absolute; background-color: #1f2937; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border-radius: 0.5rem; } .nav-item:hover .dropdown { display: block; } .dropdown a { color: white; padding: 12px 16px; text-decoration: none; display: block; border-radius: 0.5rem; } .dropdown a:hover { background-color: #374151; } </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Header & Navigation -->
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-white">O.P. Veteran</a>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="index.html" class="hover:text-yellow-400">Home</a>
+                <div class="nav-item">
+                    <button class="hover:text-yellow-400 focus:outline-none">The Organization <i class="fas fa-chevron-down fa-xs"></i></button>
+                    <div class="dropdown">
+                        <a href="index.html#financials">Financials</a>
+                        <a href="index.html#in-the-media">In The Media</a>
+                        <a href="index.html#meet-the-team">Meet The Team</a>
+                        <a href="index.html#partnerships">Partnerships</a>
+                        <a href="index.html#contact-us">Contact Us</a>
+                    </div>
+                </div>
+                 <a href="garrison-retreats.html" class="hover:text-yellow-400">Garrison Retreats</a>
+                 <a href="get-involved.html" class="hover:text-yellow-400">Get Involved</a>
+                 <a href="mental-health.html" class="hover:text-yellow-400">Mental Health</a>
+                 <a href="op-vetfest.html" class="hover:text-yellow-400">O.P. Vetfest</a>
+                 <a href="volunteer.html" class="hover:text-yellow-400">Volunteer</a>
+                 <a href="store.html" class="hover:text-yellow-400">Store</a>
+                 <a href="calendar.html" class="hover:text-yellow-400">Calendar</a>
+                <a href="#" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-full transition duration-300">Donate</a>
+                <!-- Cart Icon -->
+                <a href="checkout.html" class="relative text-xl hover:text-yellow-400">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden flex items-center"><i class="fas fa-bars text-2xl"></i></button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="index.html" class="block py-2 hover:text-yellow-400">Home</a>
+            <a href="garrison-retreats.html" class="block py-2 hover:text-yellow-400">Garrison Retreats</a>
+            <a href="get-involved.html" class="block py-2 hover:text-yellow-400">Get Involved</a>
+            <a href="mental-health.html" class="block py-2 hover:text-yellow-400">Mental Health</a>
+            <a href="op-vetfest.html" class="block py-2 hover:text-yellow-400">O.P. Vetfest</a>
+            <a href="volunteer.html" class="block py-2 hover:text-yellow-400">Volunteer</a>
+            <a href="store.html" class="block py-2 hover:text-yellow-400">Store</a>
+            <a href="calendar.html" class="block py-2 hover:text-yellow-400">Calendar</a>
+            <a href="#" class="block mt-2 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-full transition duration-300 text-center">Donate</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="py-20 bg-gray-800">
+            <div class="container mx-auto px-6">
+                <h1 class="text-5xl font-bold text-center mb-12">Your Cart</h1>
+                
+                <div class="max-w-4xl mx-auto bg-gray-900 rounded-lg shadow-xl p-8">
+                    <div id="cart-items-container">
+                        <!-- Cart items will be dynamically inserted here -->
+                    </div>
+                    
+                    <div id="cart-summary" class="border-t border-gray-700 mt-8 pt-6 text-right">
+                        <!-- Cart summary will be dynamically inserted here -->
+                    </div>
+
+                    <div id="payment-options" class="mt-12">
+                         <h2 class="text-2xl font-bold text-center mb-6 text-yellow-400">Payment Options</h2>
+                         <div class="grid md:grid-cols-2 gap-8">
+                            <!-- PayPal, Venmo, Credit/Debit -->
+                            <div class="bg-gray-800 p-6 rounded-lg">
+                                <h3 class="text-xl font-semibold mb-4">PayPal, Venmo, Credit & Debit</h3>
+                                <p class="text-gray-400 mb-4">Click the button below to pay securely with PayPal, Venmo, or any major credit/debit card.</p>
+                                <!-- 
+                                    PAYPAL INTEGRATION NOTE:
+                                    This is where the PayPal Smart Buttons will be rendered.
+                                    You will add the PayPal SDK script and initialization code here
+                                    when you are ready to connect your PayPal account.
+                                -->
+                                <div id="paypal-button-container" class="bg-gray-700 rounded-lg p-8 text-center">
+                                    <p class="font-semibold">PayPal Checkout Will Appear Here</p>
+                                </div>
+                            </div>
+
+                            <!-- Zelle -->
+                            <div class="bg-gray-800 p-6 rounded-lg">
+                                 <h3 class="text-xl font-semibold mb-4">Zelle</h3>
+                                 <p class="text-gray-400">To pay with Zelle, please send the total amount to:</p>
+                                 <p class="text-yellow-400 font-bold text-lg my-4">your-email@example.com</p>
+                                 <p class="text-gray-400 text-sm">Please include your order number in the memo. Your order will be processed once payment is confirmed.</p>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 border-t border-gray-700">
+        <div class="container mx-auto py-12 px-6 text-center text-gray-500">
+            <p>&copy; 2025 O.P. Veteran. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Checkout Page Logic ---
+        function renderCart() {
+            const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const cartSummary = document.getElementById('cart-summary');
+            
+            cartItemsContainer.innerHTML = ''; // Clear previous items
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="text-center text-gray-400">Your cart is empty.</p>';
+                document.getElementById('payment-options').classList.add('hidden');
+                cartSummary.innerHTML = '';
+                return;
+            }
+
+            let subtotal = 0;
+            const tableHeader = `<div class="hidden md:grid grid-cols-5 gap-4 mb-4 font-bold border-b border-gray-700 pb-2">
+                                    <div class="col-span-2">Product</div>
+                                    <div>Price</div>
+                                    <div>Quantity</div>
+                                    <div>Total</div>
+                                 </div>`;
+            cartItemsContainer.innerHTML += tableHeader;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                const itemElement = document.createElement('div');
+                itemElement.className = 'grid grid-cols-2 md:grid-cols-5 gap-4 items-center mb-4 border-b border-gray-600 pb-4';
+                itemElement.innerHTML = `
+                    <div class="col-span-2 font-semibold text-yellow-400">${item.name}</div>
+                    <div class="text-gray-400">$${parseFloat(item.price).toFixed(2)}</div>
+                    <div class="text-gray-400">${item.quantity}</div>
+                    <div class="font-semibold">$${itemTotal.toFixed(2)}</div>
+                `;
+                cartItemsContainer.appendChild(itemElement);
+            });
+
+            // Calculate totals (you can add tax/shipping logic here)
+            const tax = subtotal * 0.0; // Example: 0% tax
+            const total = subtotal + tax;
+
+            cartSummary.innerHTML = `
+                <p class="text-lg mb-2">Subtotal: <span class="font-bold">$${subtotal.toFixed(2)}</span></p>
+                <p class="text-lg mb-2">Tax: <span class="font-bold">$${tax.toFixed(2)}</span></p>
+                <p class="text-2xl font-bold text-yellow-400">Total: <span class="font-bold">$${total.toFixed(2)}</span></p>
+            `;
+        }
+
+        // --- General Page Logic ---
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+            const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cart-count').textContent = cartCount;
+        }
+
+        document.getElementById('mobile-menu-button').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+            renderCart();
+        });
+    </script>
+</body>
+</html>
