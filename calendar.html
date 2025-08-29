@@ -1,31 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar - O.P. Veteran</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style> 
-        body { font-family: 'Inter', sans-serif; } 
-        .nav-item { position: relative; } 
-        .dropdown { display: none; position: absolute; background-color: #1f2937; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border-radius: 0.5rem; } 
-        .nav-item:hover .dropdown { display: block; } 
-        .dropdown a { color: white; padding: 12px 16px; text-decoration: none; display: block; border-radius: 0.5rem; } 
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQHJ2KS6ZV"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GQHJ2KS6ZV');
+    </script>
+    
+    <style>
+        .nav-item { position: relative; }
+        .dropdown { display: none; position: absolute; background-color: #1f2937; min-width: 160px; z-index: 1; border-radius: 0.5rem; }
+        .nav-item:hover .dropdown { display: block; }
+        .dropdown a { color: white; padding: 12px 16px; text-decoration: none; display: block; border-radius: 0.5rem; }
         .dropdown a:hover { background-color: #374151; }
-        .calendar-day {
-            transition: all 0.2s ease-in-out;
-        }
-        .calendar-day:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .event-image {
-            background-size: cover;
-            background-position: center;
-            border-radius: 0.25rem;
-        }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
@@ -36,25 +33,14 @@
             <a href="index.html" class="text-2xl font-bold text-white">O.P. Veteran</a>
             <div class="hidden md:flex items-center space-x-6">
                 <a href="index.html" class="hover:text-yellow-400">Home</a>
-                <div class="nav-item">
-                    <button class="hover:text-yellow-400 focus:outline-none">The Organization <i class="fas fa-chevron-down fa-xs"></i></button>
-                    <div class="dropdown">
-                        <a href="index.html#financials">Financials</a>
-                        <a href="index.html#in-the-media">In The Media</a>
-                        <a href="index.html#meet-the-team">Meet The Team</a>
-                        <a href="index.html#partnerships">Partnerships</a>
-                        <a href="index.html#contact-us">Contact Us</a>
-                    </div>
-                </div>
-                 <a href="garrison-retreats.html" class="hover:text-yellow-400">Garrison Retreats</a>
-                 <a href="get-involved.html" class="hover:text-yellow-400">Get Involved</a>
-                 <a href="mental-health.html" class="hover:text-yellow-400">Mental Health</a>
-                 <a href="op-vetfest.html" class="hover:text-yellow-400">O.P. Vetfest</a>
-                 <a href="volunteer.html" class="hover:text-yellow-400">Volunteer</a>
-                 <a href="store.html" class="hover:text-yellow-400">Store</a>
-                 <a href="calendar.html" class="text-yellow-400">Calendar</a>
-                <a href="#" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-full transition duration-300">Donate</a>
-                <!-- Cart Icon -->
+                <a href="garrison-retreats.html" class="hover:text-yellow-400">Garrison Retreats</a>
+                <a href="get-involved.html" class="hover:text-yellow-400">Get Involved</a>
+                <a href="mental-health.html" class="hover:text-yellow-400">Mental Health</a>
+                <a href="op-vetfest.html" class="hover:text-yellow-400">O.P. Vetfest</a>
+                <a href="volunteer.html" class="hover:text-yellow-400">Volunteer</a>
+                <a href="store.html" class="hover:text-yellow-400">Store</a>
+                <a href="calendar.html" class="text-yellow-400">Calendar</a>
+                <a href="#" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-full">Donate</a>
                 <a href="checkout.html" class="relative text-xl hover:text-yellow-400">
                     <i class="fas fa-shopping-cart"></i>
                     <span id="cart-count" class="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
@@ -62,208 +48,114 @@
             </div>
             <button id="mobile-menu-button" class="md:hidden flex items-center"><i class="fas fa-bars text-2xl"></i></button>
         </nav>
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-            <a href="index.html" class="block py-2 hover:text-yellow-400">Home</a>
-            <a href="garrison-retreats.html" class="block py-2 hover:text-yellow-400">Garrison Retreats</a>
-            <a href="get-involved.html" class="block py-2 hover:text-yellow-400">Get Involved</a>
-            <a href="mental-health.html" class="block py-2 hover:text-yellow-400">Mental Health</a>
-            <a href="op-vetfest.html" class="block py-2 hover:text-yellow-400">O.P. Vetfest</a>
-            <a href="volunteer.html" class="block py-2 hover:text-yellow-400">Volunteer</a>
-            <a href="store.html" class="block py-2 hover:text-yellow-400">Store</a>
-            <a href="calendar.html" class="block py-2 text-yellow-400">Calendar</a>
-            <a href="#" class="block mt-2 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-full transition duration-300 text-center">Donate</a>
+             <!-- Mobile links can be dynamically generated or kept static -->
         </div>
     </header>
 
-    <main>
-        <section class="py-20 bg-gray-800">
-            <div class="container mx-auto px-6">
-                <h1 class="text-5xl font-bold text-center mb-12">Events Calendar</h1>
-                
-                <div class="lg:flex lg:gap-x-12">
-                    <!-- Calendar Grid -->
-                    <div class="lg:flex-auto">
-                        <div class="flex items-center justify-between mb-6">
-                            <h2 id="month-year" class="text-2xl font-bold text-yellow-400"></h2>
-                            <div>
-                                <button id="prev-month" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-l-lg"><i class="fas fa-chevron-left"></i></button>
-                                <button id="next-month" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-r-lg"><i class="fas fa-chevron-right"></i></button>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-7 gap-2 text-center font-bold text-gray-400 mb-2">
-                            <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
-                        </div>
-                        <div id="calendar-grid" class="grid grid-cols-7 gap-2">
-                            <!-- Calendar days will be generated here -->
-                        </div>
-                    </div>
-
-                    <!-- Upcoming Events List -->
-                    <div class="mt-12 lg:mt-0 lg:w-80 lg:flex-shrink-0">
-                        <h3 class="text-2xl font-bold mb-6 text-yellow-400">Upcoming Events</h3>
-                        <ol id="upcoming-events" class="space-y-4">
-                            <!-- Events will be listed here -->
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <main id="content-container">
+        <!-- DYNAMIC CONTENT WILL BE RENDERED HERE -->
     </main>
 
     <!-- Footer -->
     <footer class="bg-gray-800 border-t border-gray-700">
-        <div class="container mx-auto py-12 px-6 text-center text-gray-500">
-            <p>&copy; 2025 O.P. Veteran. All Rights Reserved.</p>
+        <div class="container mx-auto py-12 px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-yellow-400">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="hover:text-yellow-400 text-gray-400">Home</a></li>
+                        <li><a href="store.html" class="hover:text-yellow-400 text-gray-400">Store</a></li>
+                        <li><a href="calendar.html" class="hover:text-yellow-400 text-gray-400">Calendar</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-yellow-400">Get Involved</h4>
+                    <ul class="space-y-2">
+                        <li><a href="volunteer.html" class="hover:text-yellow-400 text-gray-400">Volunteer</a></li>
+                        <li><a href="get-involved.html" class="hover:text-yellow-400 text-gray-400">Sponsorships</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 text-gray-400">Donate</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-yellow-400">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#financials" class="hover:text-yellow-400 text-gray-400">Financials</a></li>
+                        <li><a href="privacy-policy.html" class="hover:text-yellow-400 text-gray-400">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-yellow-400">Follow Us</h4>
+                    <div class="flex justify-center md:justify-start space-x-6">
+                        <a href="#" class="text-2xl text-gray-400 hover:text-yellow-400"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-2xl text-gray-400 hover:text-yellow-400"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-2xl text-gray-400 hover:text-yellow-400"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center text-gray-500 mt-12 pt-8 border-t border-gray-700">
+                <p>&copy; 2025 O.P. Veteran. All Rights Reserved.</p>
+            </div>
         </div>
     </footer>
 
-    <script>
-        // --- Calendar Logic ---
-        const events = [
-            // --- INSTRUCTIONS ---
-            // To add an event, copy a block below and change the details.
-            // date: 'YYYY-MM-DD'
-            // title: 'Event Name'
-            // imageUrl: 'Link to a small photo for the event'
-            // facebookLink: 'Link to the Facebook event page'
-            {
-                date: '2025-09-13',
-                title: 'Monthly Game Night',
-                imageUrl: 'https://placehold.co/100x100/1f2937/FFFFFF?text=Game',
-                facebookLink: 'https://www.facebook.com/events/example1'
-            },
-            {
-                date: '2025-09-25',
-                title: 'Thirsty Thursday Meetup',
-                imageUrl: 'https://placehold.co/100x100/1f2937/FFFFFF?text=Meetup',
-                facebookLink: 'https://www.facebook.com/events/example2'
-            },
-            {
-                date: '2025-10-11',
-                title: 'VetFest Planning Session',
-                imageUrl: 'https://placehold.co/100x100/1f2937/FFFFFF?text=Planning',
-                facebookLink: 'https://www.facebook.com/events/example3'
-            }
-        ];
-
-        let currentDate = new Date();
-
-        function renderCalendar() {
-            const calendarGrid = document.getElementById('calendar-grid');
-            const monthYearEl = document.getElementById('month-year');
-            
-            calendarGrid.innerHTML = '';
-            
-            const month = currentDate.getMonth();
-            const year = currentDate.getFullYear();
-            
-            monthYearEl.textContent = `${currentDate.toLocaleString('default', { month: 'long' })} ${year}`;
-            
-            const firstDayOfMonth = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-            // Add blank days for the start of the month
-            for (let i = 0; i < firstDayOfMonth; i++) {
-                calendarGrid.innerHTML += '<div></div>';
-            }
-
-            // Add days of the month
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dayEl = document.createElement('div');
-                // UPDATED: Changed bg-gray-800 to bg-gray-700 for better visibility
-                dayEl.className = 'calendar-day bg-gray-700 p-2 rounded-lg h-28 flex flex-col';
-                
-                const dayNumber = document.createElement('span');
-                dayNumber.className = 'font-bold';
-                dayNumber.textContent = day;
-                dayEl.appendChild(dayNumber);
-
-                // Check for events on this day
-                const todayStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                const dayEvents = events.filter(e => e.date === todayStr);
-
-                if (dayEvents.length > 0) {
-                    const event = dayEvents[0]; // Displaying the first event for the day
-                    const eventLink = document.createElement('a');
-                    eventLink.href = event.facebookLink;
-                    eventLink.target = '_blank';
-                    eventLink.rel = 'noopener noreferrer';
-                    eventLink.className = 'event-image mt-1 flex-grow';
-                    eventLink.style.backgroundImage = `url('${event.imageUrl}')`;
-                    
-                    const eventTitle = document.createElement('span');
-                    eventTitle.className = 'sr-only'; // Screen reader only
-                    eventTitle.textContent = event.title;
-                    eventLink.appendChild(eventTitle);
-                    
-                    dayEl.appendChild(eventLink);
-                    dayEl.classList.add('cursor-pointer');
-                    dayEl.onclick = () => window.open(event.facebookLink, '_blank');
+    <!-- Firebase SDK -->
+    <script type="module">
+        const firebaseConfig = {
+          apiKey: "AIzaSyC6qudgcovgEf_xTNUTBVxBTTdgjotqMV8",
+          authDomain: "opveteran-wesite.firebaseapp.com",
+          projectId: "opveteran-wesite",
+          storageBucket: "opveteran-wesite.appspot.com",
+          messagingSenderId: "904502345576",
+          appId: "1:904502345576:web:bfbaffcc9ebf5f233ba0dd",
+          measurementId: "G-GQHJ2KS6ZV"
+        };
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const analytics = getAnalytics(app);
+        const contentContainer = document.getElementById('content-container');
+        const pageId = 'calendar'; 
+        async function loadPage() {
+            try {
+                const settingsRef = doc(db, 'settings', 'global');
+                const settingsSnap = await getDoc(settingsRef);
+                if (settingsSnap.exists() && settingsSnap.data().fontFamily) {
+                    document.body.style.fontFamily = settingsSnap.data().fontFamily;
                 }
-                
-                calendarGrid.appendChild(dayEl);
+                const pageRef = doc(db, 'pages', pageId);
+                const pageSnap = await getDoc(pageRef);
+                if (pageSnap.exists()) {
+                    renderContent(pageSnap.data().content || []);
+                } else {
+                    contentContainer.innerHTML = '<p class="text-center py-20">Page content not found. Add content in the admin panel.</p>';
+                }
+            } catch (error) {
+                console.error("Error loading page content:", error);
+                contentContainer.innerHTML = '<p class="text-center py-20 text-red-500">Error: Could not connect to the database.</p>';
             }
         }
-
-        function renderUpcomingEvents() {
-            const upcomingEventsEl = document.getElementById('upcoming-events');
-            upcomingEventsEl.innerHTML = '';
-            const now = new Date();
-            now.setHours(0,0,0,0);
-
-            const sortedUpcoming = events
-                .filter(e => new Date(e.date) >= now)
-                .sort((a, b) => new Date(a.date) - new Date(b.date))
-                .slice(0, 5); // Show next 5 events
-
-            if (sortedUpcoming.length === 0) {
-                upcomingEventsEl.innerHTML = '<li><p class="text-gray-400">No upcoming events scheduled.</p></li>';
-                return;
-            }
-
-            sortedUpcoming.forEach(event => {
-                const li = document.createElement('li');
-                li.innerHTML = `
-                    <a href="${event.facebookLink}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-x-4 p-3 rounded-lg bg-gray-800 hover:bg-gray-700 transition">
-                        <img src="${event.imageUrl}" alt="${event.title}" class="h-12 w-12 flex-none rounded-full bg-gray-700">
-                        <div class="flex-auto">
-                            <p class="font-semibold text-white">${event.title}</p>
-                            <p class="text-gray-400">${new Date(event.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</p>
-                        </div>
-                        <i class="fas fa-chevron-right text-gray-500"></i>
-                    </a>
-                `;
-                upcomingEventsEl.appendChild(li);
+        function renderContent(blocks) {
+            contentContainer.innerHTML = '';
+            blocks.forEach(block => {
+                let blockHtml = '';
+                switch (block.type) {
+                    case 'text': blockHtml = `<section class="py-12 bg-gray-800"><div class="container mx-auto px-6 prose prose-invert max-w-4xl">${block.htmlContent}</div></section>`; break;
+                    case 'image': blockHtml = `<section class="py-12"><div class="container mx-auto px-6"><img src="${block.imageUrl}" class="w-full max-w-4xl mx-auto rounded-lg shadow-lg"></div></section>`; break;
+                    case 'video': blockHtml = `<section class="py-12"><div class="container mx-auto px-6"><div class="relative mx-auto max-w-4xl" style="padding-top: 56.25%;"><iframe class="absolute top-0 left-0 w-full h-full rounded-lg" src="${block.videoUrl}" allowfullscreen></iframe></div></div></section>`; break;
+                }
+                contentContainer.innerHTML += blockHtml;
             });
         }
-
-        document.getElementById('prev-month').addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() - 1);
-            renderCalendar();
-        });
-
-        document.getElementById('next-month').addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() + 1);
-            renderCalendar();
-        });
-
-        // --- General Page Logic ---
         function updateCartCount() {
             const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-            const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
-            const cartCountElement = document.getElementById('cart-count');
-            if (cartCountElement) {
-                cartCountElement.textContent = cartCount;
-            }
+            document.getElementById('cart-count').textContent = cart.reduce((total, item) => total + item.quantity, 0);
         }
-        document.getElementById('mobile-menu-button').addEventListener('click', () => {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        });
-        document.addEventListener('DOMContentLoaded', () => {
-            updateCartCount();
-            renderCalendar();
-            renderUpcomingEvents();
-        });
+        document.getElementById('mobile-menu-button').addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('hidden'));
+        document.addEventListener('DOMContentLoaded', () => { updateCartCount(); loadPage(); });
     </script>
 </body>
 </html>

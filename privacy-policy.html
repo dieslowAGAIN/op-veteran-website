@@ -1,13 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - O.P. Veteran</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style> body { font-family: 'Inter', sans-serif; } .nav-item { position: relative; } .dropdown { display: none; position: absolute; background-color: #1f2937; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border-radius: 0.5rem; } .nav-item:hover .dropdown { display: block; } .dropdown a { color: white; padding: 12px 16px; text-decoration: none; display: block; border-radius: 0.5rem; } .dropdown a:hover { background-color: #374151; } </style>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQHJ2KS6ZV"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GQHJ2KS6ZV');
+    </script>
+    
+    <style>
+        .nav-item { position: relative; }
+        .dropdown { display: none; position: absolute; background-color: #1f2937; min-width: 160px; z-index: 1; border-radius: 0.5rem; }
+        .nav-item:hover .dropdown { display: block; }
+        .dropdown a { color: white; padding: 12px 16px; text-decoration: none; display: block; border-radius: 0.5rem; }
+        .dropdown a:hover { background-color: #374151; }
+    </style>
 </head>
 <body class="bg-gray-900 text-white">
 
@@ -17,25 +33,14 @@
             <a href="index.html" class="text-2xl font-bold text-white">O.P. Veteran</a>
             <div class="hidden md:flex items-center space-x-6">
                 <a href="index.html" class="hover:text-yellow-400">Home</a>
-                <div class="nav-item">
-                    <button class="hover:text-yellow-400 focus:outline-none">The Organization <i class="fas fa-chevron-down fa-xs"></i></button>
-                    <div class="dropdown">
-                        <a href="index.html#financials">Financials</a>
-                        <a href="index.html#in-the-media">In The Media</a>
-                        <a href="index.html#meet-the-team">Meet The Team</a>
-                        <a href="index.html#partnerships">Partnerships</a>
-                        <a href="index.html#contact-us">Contact Us</a>
-                    </div>
-                </div>
-                 <a href="garrison-retreats.html" class="hover:text-yellow-400">Garrison Retreats</a>
-                 <a href="get-involved.html" class="hover:text-yellow-400">Get Involved</a>
-                 <a href="mental-health.html" class="hover:text-yellow-400">Mental Health</a>
-                 <a href="op-vetfest.html" class="hover:text-yellow-400">O.P. Vetfest</a>
-                 <a href="volunteer.html" class="hover:text-yellow-400">Volunteer</a>
-                 <a href="store.html" class="hover:text-yellow-400">Store</a>
-                 <a href="calendar.html" class="hover:text-yellow-400">Calendar</a>
-                <a href="#" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-full transition duration-300">Donate</a>
-                <!-- Cart Icon -->
+                <a href="garrison-retreats.html" class="hover:text-yellow-400">Garrison Retreats</a>
+                <a href="get-involved.html" class="hover:text-yellow-400">Get Involved</a>
+                <a href="mental-health.html" class="hover:text-yellow-400">Mental Health</a>
+                <a href="op-vetfest.html" class="hover:text-yellow-400">O.P. Vetfest</a>
+                <a href="volunteer.html" class="hover:text-yellow-400">Volunteer</a>
+                <a href="store.html" class="hover:text-yellow-400">Store</a>
+                <a href="calendar.html" class="hover:text-yellow-400">Calendar</a>
+                <a href="#" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-full">Donate</a>
                 <a href="checkout.html" class="relative text-xl hover:text-yellow-400">
                     <i class="fas fa-shopping-cart"></i>
                     <span id="cart-count" class="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
@@ -43,44 +48,14 @@
             </div>
             <button id="mobile-menu-button" class="md:hidden flex items-center"><i class="fas fa-bars text-2xl"></i></button>
         </nav>
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-            <a href="index.html" class="block py-2 hover:text-yellow-400">Home</a>
-            <a href="garrison-retreats.html" class="block py-2 hover:text-yellow-400">Garrison Retreats</a>
-            <a href="get-involved.html" class="block py-2 hover:text-yellow-400">Get Involved</a>
-            <a href="mental-health.html" class="block py-2 hover:text-yellow-400">Mental Health</a>
-            <a href="op-vetfest.html" class="block py-2 hover:text-yellow-400">O.P. Vetfest</a>
-            <a href="volunteer.html" class="block py-2 hover:text-yellow-400">Volunteer</a>
-            <a href="store.html" class="block py-2 hover:text-yellow-400">Store</a>
-            <a href="calendar.html" class="block py-2 hover:text-yellow-400">Calendar</a>
-            <a href="#" class="block mt-2 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-full transition duration-300 text-center">Donate</a>
+             <!-- Mobile links can be dynamically generated or kept static -->
         </div>
     </header>
 
-    <main>
-        <section class="py-20 bg-gray-800">
-            <div class="container mx-auto px-6 max-w-4xl">
-                <h1 class="text-5xl font-bold mb-8">Privacy Policy</h1>
-                <div class="space-y-6 text-gray-300 leading-relaxed">
-                    <p><strong>Last Updated: August 28, 2025</strong></p>
-                    <p>This is a placeholder for your privacy policy. It's important to have a clear and comprehensive policy that explains how you collect, use, and protect your visitors' personal information. You should consult with a legal professional to draft a policy that is compliant with regulations like GDPR and CCPA.</p>
-                    
-                    <div>
-                        <h2 class="text-2xl font-bold mt-8 mb-4 text-yellow-400">1. Information We Collect</h2>
-                        <p>Placeholder text: Describe the types of information you collect, such as names, email addresses, and any data collected through your contact form or sign-up sheets.</p>
-                    </div>
-
-                    <div>
-                        <h2 class="text-2xl font-bold mt-8 mb-4 text-yellow-400">2. How We Use Your Information</h2>
-                        <p>Placeholder text: Explain the purpose of collecting data, for example, to process donations, send newsletters, or register participants for events.</p>
-                    </div>
-
-                    <div>
-                        <h2 class="text-2xl font-bold mt-8 mb-4 text-yellow-400">3. Data Security</h2>
-                        <p>Placeholder text: Detail the measures you take to protect user data from unauthorized access or breaches.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <main id="content-container">
+        <!-- DYNAMIC CONTENT WILL BE RENDERED HERE -->
     </main>
 
     <!-- Footer -->
@@ -125,21 +100,62 @@
         </div>
     </footer>
 
-    <script>
-        function updateCartCount() {
-            const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-            const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
-            const cartCountElement = document.getElementById('cart-count');
-            if (cartCountElement) {
-                cartCountElement.textContent = cartCount;
+    <!-- Firebase SDK -->
+    <script type="module">
+        const firebaseConfig = {
+          apiKey: "AIzaSyC6qudgcovgEf_xTNUTBVxBTTdgjotqMV8",
+          authDomain: "opveteran-wesite.firebaseapp.com",
+          projectId: "opveteran-wesite",
+          storageBucket: "opveteran-wesite.appspot.com",
+          messagingSenderId: "904502345576",
+          appId: "1:904502345576:web:bfbaffcc9ebf5f233ba0dd",
+          measurementId: "G-GQHJ2KS6ZV"
+        };
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const analytics = getAnalytics(app);
+        const contentContainer = document.getElementById('content-container');
+        const pageId = 'privacy-policy'; 
+        async function loadPage() {
+            try {
+                const settingsRef = doc(db, 'settings', 'global');
+                const settingsSnap = await getDoc(settingsRef);
+                if (settingsSnap.exists() && settingsSnap.data().fontFamily) {
+                    document.body.style.fontFamily = settingsSnap.data().fontFamily;
+                }
+                const pageRef = doc(db, 'pages', pageId);
+                const pageSnap = await getDoc(pageRef);
+                if (pageSnap.exists()) {
+                    renderContent(pageSnap.data().content || []);
+                } else {
+                    contentContainer.innerHTML = '<p class="text-center py-20">Page content not found. Add content in the admin panel.</p>';
+                }
+            } catch (error) {
+                console.error("Error loading page content:", error);
+                contentContainer.innerHTML = '<p class="text-center py-20 text-red-500">Error: Could not connect to the database.</p>';
             }
         }
-        document.getElementById('mobile-menu-button').addEventListener('click', () => {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        });
-        document.addEventListener('DOMContentLoaded', () => {
-            updateCartCount();
-        });
+        function renderContent(blocks) {
+            contentContainer.innerHTML = '';
+            blocks.forEach(block => {
+                let blockHtml = '';
+                switch (block.type) {
+                    case 'text': blockHtml = `<section class="py-12 bg-gray-800"><div class="container mx-auto px-6 prose prose-invert max-w-4xl">${block.htmlContent}</div></section>`; break;
+                    case 'image': blockHtml = `<section class="py-12"><div class="container mx-auto px-6"><img src="${block.imageUrl}" class="w-full max-w-4xl mx-auto rounded-lg shadow-lg"></div></section>`; break;
+                    case 'video': blockHtml = `<section class="py-12"><div class="container mx-auto px-6"><div class="relative mx-auto max-w-4xl" style="padding-top: 56.25%;"><iframe class="absolute top-0 left-0 w-full h-full rounded-lg" src="${block.videoUrl}" allowfullscreen></iframe></div></div></section>`; break;
+                }
+                contentContainer.innerHTML += blockHtml;
+            });
+        }
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+            document.getElementById('cart-count').textContent = cart.reduce((total, item) => total + item.quantity, 0);
+        }
+        document.getElementById('mobile-menu-button').addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('hidden'));
+        document.addEventListener('DOMContentLoaded', () => { updateCartCount(); loadPage(); });
     </script>
 </body>
 </html>
