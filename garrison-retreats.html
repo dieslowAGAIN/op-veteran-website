@@ -103,25 +103,14 @@
     <!-- Firebase SDK -->
     <script type="module">
         // Your web app's Firebase configuration
-        const firebaseConfig = {// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyC6qudgcovgEf_xTNUTBVxBTTdgjotqMV8",
-  authDomain: "opveteran-wesite.firebaseapp.com",
-  projectId: "opveteran-wesite",
-  storageBucket: "opveteran-wesite.appspot.com",
-  messagingSenderId: "904502345576",
-  appId: "1:904502345576:web:bfbaffcc9ebf5f233ba0dd",
-  measurementId: "G-GQHJ2KS6ZV"
-};
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const analytics = getAnalytics(app); // Initialize Analytics
+        const firebaseConfig = {
+          apiKey: "AIzaSyC6qudgcovgEf_xTNUTBVxBTTdgjotqMV8",
+          authDomain: "opveteran-wesite.firebaseapp.com",
+          projectId: "opveteran-wesite",
+          storageBucket: "opveteran-wesite.appspot.com",
+          messagingSenderId: "904502345576",
+          appId: "1:904502345576:web:bfbaffcc9ebf5f233ba0dd",
+          measurementId: "G-GQHJ2KS6ZV"
         };
 
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
@@ -158,7 +147,11 @@ const analytics = getAnalytics(app); // Initialize Analytics
                 }
             } catch (error) {
                 console.error("Error loading page content:", error);
-                contentContainer.innerHTML = '<p class="text-center py-20 text-red-500">Error: Could not connect to the database. Please check your Firebase configuration and internet connection.</p>';
+                let errorMessage = '<p class="text-center py-20 text-red-500">Error: Could not connect to the database. Please check your Firebase configuration and internet connection.</p>';
+                if (error.code === 'permission-denied') {
+                    errorMessage = '<p class="text-center py-20 text-red-500"><strong>Error: Missing Permissions.</strong><br>Could not read from the database. Please check your Firestore security rules in the Firebase console.</p>';
+                }
+                contentContainer.innerHTML = errorMessage;
             }
         }
 
@@ -197,4 +190,3 @@ const analytics = getAnalytics(app); // Initialize Analytics
     </script>
 </body>
 </html>
-
