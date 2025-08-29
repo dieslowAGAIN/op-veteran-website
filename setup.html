@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Firebase Content Setup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center h-screen">
+
+    <div class="text-center">
+        <h1 class="text-3xl font-bold mb-4">Website Content Initializer</h1>
+        <p class="text-gray-400 mb-8">Click the button below to upload the default content structure to your Firestore database. You only need to do this once.</p>
+        <button id="setup-btn" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-8 rounded-full text-lg transition duration-300">
+            Initialize Website Content
+        </button>
+        <p id="status" class="mt-4 text-green-400"></p>
+    </div>
+
+    <script type="module">
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyC6qudgcovgEf_xTNUTBVxBTTdgjotqMV8",
+          authDomain: "opveteran-website.firebaseapp.com",
+          projectId: "opveteran-website",
+          storageBucket: "opveteran-website.appspot.com",
+          messagingSenderId: "904502345576",
+          appId: "1:904502345576:web:bfbaffcc9ebf5f233ba0dd",
+          measurementId: "G-GQHJ2KS6ZV"
+        };
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const setupBtn = document.getElementById('setup-btn');
+        const statusEl = document.getElementById('status');
+
+        // This object contains the original structure of your website pages
+        const websiteData = {
+            'home': {
+                content: [
+                    { type: 'text', htmlContent: `...` }, // Placeholder for Hero, Pillars, etc.
+                ]
+            },
+            'garrison-retreats': {
+                content: [
+                    { type: 'text', htmlContent: `...` }, // Placeholder for Retreats content
+                ]
+            },
+            // ... Add all other pages here
+        };
+
+        setupBtn.addEventListener('click', async () => {
+            statusEl.textContent = 'Uploading...';
+            try {
+                for (const pageId in websiteData) {
+                    const pageData = websiteData[pageId];
+                    const docRef = doc(db, 'pages', pageId);
+                    await setDoc(docRef, pageData);
+                }
+                statusEl.textContent = 'Successfully initialized all pages!';
+            } catch (error) {
+                statusEl.textContent = `Error: ${error.message}`;
+                statusEl.classList.remove('text-green-400');
+                statusEl.classList.add('text-red-400');
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+</html>
