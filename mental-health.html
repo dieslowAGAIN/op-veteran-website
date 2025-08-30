@@ -102,14 +102,27 @@
 
     <!-- Firebase SDK -->
     <script type="module">
-        const firebaseConfig = {
-          apiKey: "AIzaSyC6qudgcovgEf_xTNUTBVxBTTdgjotqMV8",
-          authDomain: "opveteran-wesite.firebaseapp.com",
-          projectId: "opveteran-wesite",
-          storageBucket: "opveteran-wesite.appspot.com",
-          messagingSenderId: "904502345576",
-          appId: "1:904502345576:web:bfbaffcc9ebf5f233ba0dd",
-          measurementId: "G-GQHJ2KS6ZV"
+        const firebaseConfig = {// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAznsT6i5H0DJ6-X2FK5ZuBOHwiP2vfgCQ",
+  authDomain: "opveteran-website-v2.firebaseapp.com",
+  projectId: "opveteran-website-v2",
+  storageBucket: "opveteran-website-v2.firebasestorage.app",
+  messagingSenderId: "759648723714",
+  appId: "1:759648723714:web:99d9a4b77e4e994a2fd81b",
+  measurementId: "G-ZW9XEGYGKR"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
         };
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
