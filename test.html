@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Firebase Connection Test</title>
+</head>
+<body style="background-color: #111827; color: white; font-family: sans-serif; text-align: center; padding-top: 50px;">
+
+    <h1 style="font-size: 2em;">Firebase Connection Test</h1>
+    <p>Check the browser's developer console (F12) for a success or failure message.</p>
+    <p id="status" style="font-size: 1.5em; font-weight: bold;"></p>
+
+    <script type="module">
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyC6qudgcovgEf_xTNUTBVxBTTdgjotqMV8",
+          authDomain: "opveteran-website.firebaseapp.com",
+          projectId: "opveteran-website",
+          storageBucket: "opveteran-website.appspot.com",
+          messagingSenderId: "904502345576",
+          appId: "1:904502345576:web:bfbaffcc9ebf5f233ba0dd",
+          measurementId: "G-GQHJ2KS6ZV"
+        };
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+
+        const statusEl = document.getElementById('status');
+
+        try {
+            console.log("Initializing Firebase...");
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
+            console.log("Firebase Initialized. Attempting to write to Firestore...");
+            statusEl.textContent = "Connecting...";
+
+            // The test: write a simple document
+            const testDocRef = doc(db, 'test', 'hello-world');
+            await setDoc(testDocRef, { status: "success", timestamp: new Date() });
+
+            console.log("%c SUCCESS! ", "color: green; font-size: 20px; font-weight: bold;");
+            console.log("Successfully wrote a document to your Firestore database. The connection is working.");
+            statusEl.textContent = "Success!";
+            statusEl.style.color = "#4ade80"; // Green color for success
+
+        } catch (error) {
+            console.error("%c FAILED! ", "color: red; font-size: 20px; font-weight: bold;");
+            console.error("The connection to Firebase failed. Here is the error:", error);
+            statusEl.textContent = "Failed. Check console for details.";
+            statusEl.style.color = "#f87171"; // Red color for failure
+        }
+    </script>
+</body>
+</html>
