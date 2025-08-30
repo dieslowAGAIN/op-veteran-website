@@ -5,24 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar - O.P. Veteran</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQHJ2KS6ZV"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-GQHJ2KS6ZV');
-    </script>
-    
     <style>
-        .nav-item { position: relative; }
-        .dropdown { display: none; position: absolute; background-color: #1f2937; min-width: 160px; z-index: 1; border-radius: 0.5rem; }
-        .nav-item:hover .dropdown { display: block; }
-        .dropdown a { color: white; padding: 12px 16px; text-decoration: none; display: block; border-radius: 0.5rem; }
-        .dropdown a:hover { background-color: #374151; }
+        .calendar-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+        .calendar-day { background-color: #374151; }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
@@ -50,12 +37,32 @@
         </nav>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-             <!-- Mobile links can be dynamically generated or kept static -->
+             <!-- Mobile links -->
         </div>
     </header>
 
-    <main id="content-container">
-        <!-- DYNAMIC CONTENT WILL BE RENDERED HERE -->
+    <main>
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12">Events Calendar</h2>
+                <div class="bg-gray-800 rounded-lg shadow-xl p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <button id="prev-month" class="text-yellow-400 hover:text-yellow-300"><i class="fas fa-chevron-left fa-2x"></i></button>
+                        <h3 id="month-year" class="text-3xl font-bold"></h3>
+                        <button id="next-month" class="text-yellow-400 hover:text-yellow-300"><i class="fas fa-chevron-right fa-2x"></i></button>
+                    </div>
+                    <div class="grid grid-cols-7 text-center font-bold text-gray-400 mb-2">
+                        <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                    </div>
+                    <div id="calendar-grid" class="calendar-grid gap-2">
+                        <!-- Calendar days will be generated here -->
+                    </div>
+                </div>
+                <div id="upcoming-events" class="mt-12">
+                    <!-- Upcoming events list will be generated here -->
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
@@ -81,7 +88,6 @@
                 <div>
                     <h4 class="text-lg font-bold mb-4 text-yellow-400">Legal</h4>
                     <ul class="space-y-2">
-                        <li><a href="index.html#financials" class="hover:text-yellow-400 text-gray-400">Financials</a></li>
                         <li><a href="privacy-policy.html" class="hover:text-yellow-400 text-gray-400">Privacy Policy</a></li>
                     </ul>
                 </div>
@@ -100,63 +106,69 @@
         </div>
     </footer>
 
-    <!-- Firebase SDK -->
-    <script type="module">
-        // IMPORTANT: Replace with your new Firebase project's configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAznsT6i5H0DJ6-X2FK5ZuBOHwiP2vfgCQ",
-            authDomain: "opveteran-website-v2.firebaseapp.com",
-            projectId: "opveteran-website-v2",
-            storageBucket: "opveteran-website-v2.appspot.com",
-            messagingSenderId: "759648723714",
-            appId: "1:759648723714:web:99d9a4b77e4e994a2fd81b",
-            measurementId: "G-ZW9XEGYGKR"
-        };
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const analytics = getAnalytics(app);
-        const contentContainer = document.getElementById('content-container');
-        const pageId = 'calendar'; 
-        async function loadPage() {
-            try {
-                const settingsRef = doc(db, 'settings', 'global');
-                const settingsSnap = await getDoc(settingsRef);
-                if (settingsSnap.exists() && settingsSnap.data().fontFamily) {
-                    document.body.style.fontFamily = settingsSnap.data().fontFamily;
-                }
-                const pageRef = doc(db, 'pages', pageId);
-                const pageSnap = await getDoc(pageRef);
-                if (pageSnap.exists()) {
-                    renderContent(pageSnap.data().content || []);
-                } else {
-                    contentContainer.innerHTML = '<p class="text-center py-20">Page content not found. Add content in the admin panel.</p>';
-                }
-            } catch (error) {
-                console.error("Error loading page content:", error);
-                contentContainer.innerHTML = '<p class="text-center py-20 text-red-500">Error: Could not connect to the database.</p>';
-            }
-        }
-        function renderContent(blocks) {
-            contentContainer.innerHTML = '';
-            blocks.forEach(block => {
-                let blockHtml = '';
-                switch (block.type) {
-                    case 'text': blockHtml = `<section class="py-12 bg-gray-800"><div class="container mx-auto px-6 prose prose-invert max-w-4xl">${block.htmlContent}</div></section>`; break;
-                    case 'image': blockHtml = `<section class="py-12"><div class="container mx-auto px-6"><img src="${block.imageUrl}" class="w-full max-w-4xl mx-auto rounded-lg shadow-lg"></div></section>`; break;
-                    case 'video': blockHtml = `<section class="py-12"><div class="container mx-auto px-6"><div class="relative mx-auto max-w-4xl" style="padding-top: 56.25%;"><iframe class="absolute top-0 left-0 w-full h-full rounded-lg" src="${block.videoUrl}" allowfullscreen></iframe></div></div></section>`; break;
-                }
-                contentContainer.innerHTML += blockHtml;
-            });
-        }
+    <script>
         function updateCartCount() {
             const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
             document.getElementById('cart-count').textContent = cart.reduce((total, item) => total + item.quantity, 0);
         }
-        document.getElementById('mobile-menu-button').addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('hidden'));
-        document.addEventListener('DOMContentLoaded', () => { updateCartCount(); loadPage(); });
+        document.getElementById('mobile-menu-button').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+        document.addEventListener('DOMContentLoaded', updateCartCount);
+
+        // --- Calendar Logic ---
+        const monthYearEl = document.getElementById('month-year');
+        const calendarGridEl = document.getElementById('calendar-grid');
+        const upcomingEventsEl = document.getElementById('upcoming-events');
+        const prevMonthBtn = document.getElementById('prev-month');
+        const nextMonthBtn = document.getElementById('next-month');
+        let currentDate = new Date();
+        const events = [
+            { date: '2025-09-15', title: 'Monthly Game Night', image: 'https://placehold.co/100x50/374151/FFFFFF?text=Games', url: '#' },
+            { date: '2025-09-25', title: 'Thirsty Thursday Meetup', image: 'https://placehold.co/100x50/374151/FFFFFF?text=Drinks', url: '#' },
+        ];
+        function renderCalendar() {
+            calendarGridEl.innerHTML = '';
+            upcomingEventsEl.innerHTML = '';
+            const month = currentDate.getMonth();
+            const year = currentDate.getFullYear();
+            monthYearEl.textContent = `${currentDate.toLocaleString('default', { month: 'long' })} ${year}`;
+            
+            const firstDayOfMonth = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            for (let i = 0; i < firstDayOfMonth; i++) {
+                calendarGridEl.innerHTML += `<div class="p-2 h-24"></div>`;
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const dayEvents = events.filter(e => e.date === dateStr);
+                let eventHtml = '';
+                if(dayEvents.length > 0) {
+                    eventHtml = dayEvents.map(e => `<a href="${e.url}" target="_blank" class="block mt-1 text-xs text-yellow-300 hover:underline truncate">${e.title}</a>`).join('');
+                }
+                calendarGridEl.innerHTML += `<div class="calendar-day border border-gray-700 p-2 h-24 overflow-hidden rounded-md"><div class="font-bold">${day}</div>${eventHtml}</div>`;
+            }
+            
+            // Render upcoming events list
+            const futureEvents = events.filter(e => new Date(e.date) >= new Date(new Date().toDateString())).sort((a,b) => new Date(a.date) - new Date(b.date));
+            let upcomingHtml = '<h3 class="text-3xl font-bold mb-6">Upcoming Events</h3>';
+            if(futureEvents.length > 0) {
+                upcomingHtml += '<div class="space-y-4">';
+                futureEvents.forEach(e => {
+                     upcomingHtml += `<a href="${e.url}" target="_blank" class="flex items-center bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition"><img src="${e.image}" class="w-24 h-12 object-cover rounded-md mr-4"><div class="text-left"><p class="font-bold text-white">${e.title}</p><p class="text-gray-400">${new Date(e.date).toLocaleDateString(undefined, {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}</p></div></a>`;
+                });
+                upcomingHtml += '</div>';
+            } else {
+                upcomingHtml += '<p>No upcoming events scheduled. Check back soon!</p>';
+            }
+            upcomingEventsEl.innerHTML = upcomingHtml;
+        }
+        prevMonthBtn.addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); });
+        nextMonthBtn.addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); });
+        document.addEventListener('DOMContentLoaded', renderCalendar);
     </script>
 </body>
 </html>
+

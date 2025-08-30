@@ -5,24 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Involved - O.P. Veteran</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQHJ2KS6ZV"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-GQHJ2KS6ZV');
-    </script>
-    
     <style>
-        .nav-item { position: relative; }
-        .dropdown { display: none; position: absolute; background-color: #1f2937; min-width: 160px; z-index: 1; border-radius: 0.5rem; }
-        .nav-item:hover .dropdown { display: block; }
-        .dropdown a { color: white; padding: 12px 16px; text-decoration: none; display: block; border-radius: 0.5rem; }
-        .dropdown a:hover { background-color: #374151; }
+        body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
@@ -50,12 +36,41 @@
         </nav>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-             <!-- Mobile links can be dynamically generated or kept static -->
+            <a href="index.html" class="block py-2 hover:text-yellow-400">Home</a>
+            <a href="garrison-retreats.html" class="block py-2 hover:text-yellow-400">Garrison Retreats</a>
+            <a href="get-involved.html" class="block py-2 text-yellow-400">Get Involved</a>
+            <a href="mental-health.html" class="block py-2 hover:text-yellow-400">Mental Health</a>
+            <a href="op-vetfest.html" class="block py-2 hover:text-yellow-400">O.P. Vetfest</a>
+            <a href="volunteer.html" class="block py-2 hover:text-yellow-400">Volunteer</a>
+            <a href="store.html" class="block py-2 hover:text-yellow-400">Store</a>
+            <a href="calendar.html" class="block py-2 hover:text-yellow-400">Calendar</a>
+            <a href="#" class="block mt-2 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-full text-center">Donate</a>
         </div>
     </header>
 
-    <main id="content-container">
-        <!-- DYNAMIC CONTENT WILL BE RENDERED HERE -->
+    <main>
+        <section class="py-20 bg-gray-900">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold mb-12">Get Involved</h2>
+                <div class="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+                    <div class="bg-gray-800 p-8 rounded-lg shadow-xl">
+                        <h3 class="text-2xl font-bold mb-4 text-yellow-400">Game Night</h3>
+                        <p class="text-gray-400 mb-6">Join fellow veterans and their families for a fun, relaxing evening of board games, video games, and camaraderie.</p>
+                        <a href="#" class="text-yellow-500 hover:underline font-semibold">Learn More</a>
+                    </div>
+                    <div class="bg-gray-800 p-8 rounded-lg shadow-xl">
+                        <h3 class="text-2xl font-bold mb-4 text-yellow-400">Sponsorships</h3>
+                        <p class="text-gray-400 mb-6">Help us continue our mission by sponsoring an event or program. A great way for businesses to show their support.</p>
+                        <a href="#" class="text-yellow-500 hover:underline font-semibold">Learn More</a>
+                    </div>
+                    <div class="bg-gray-800 p-8 rounded-lg shadow-xl">
+                        <h3 class="text-2xl font-bold mb-4 text-yellow-400">Thirsty Thursday</h3>
+                        <p class="text-gray-400 mb-6">A casual monthly meetup for veterans to network, share stories, and build connections in a relaxed social setting.</p>
+                        <a href="#" class="text-yellow-500 hover:underline font-semibold">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
@@ -81,7 +96,6 @@
                 <div>
                     <h4 class="text-lg font-bold mb-4 text-yellow-400">Legal</h4>
                     <ul class="space-y-2">
-                        <li><a href="index.html#financials" class="hover:text-yellow-400 text-gray-400">Financials</a></li>
                         <li><a href="privacy-policy.html" class="hover:text-yellow-400 text-gray-400">Privacy Policy</a></li>
                     </ul>
                 </div>
@@ -100,64 +114,16 @@
         </div>
     </footer>
 
-    <!-- Firebase SDK -->
-    <script type="module">
-        // IMPORTANT: Replace with your new Firebase project's configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAznsT6i5H0DJ6-X2FK5ZuBOHwiP2vfgCQ",
-            authDomain: "opveteran-website-v2.firebaseapp.com",
-            projectId: "opveteran-website-v2",
-            storageBucket: "opveteran-website-v2.appspot.com",
-            messagingSenderId: "759648723714",
-            appId: "1:759648723714:web:99d9a4b77e4e994a2fd81b",
-            measurementId: "G-ZW9XEGYGKR"
-        };
-
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const analytics = getAnalytics(app);
-        const contentContainer = document.getElementById('content-container');
-        const pageId = 'get-involved'; 
-        async function loadPage() {
-            try {
-                const settingsRef = doc(db, 'settings', 'global');
-                const settingsSnap = await getDoc(settingsRef);
-                if (settingsSnap.exists() && settingsSnap.data().fontFamily) {
-                    document.body.style.fontFamily = settingsSnap.data().fontFamily;
-                }
-                const pageRef = doc(db, 'pages', pageId);
-                const pageSnap = await getDoc(pageRef);
-                if (pageSnap.exists()) {
-                    renderContent(pageSnap.data().content || []);
-                } else {
-                    contentContainer.innerHTML = '<p class="text-center py-20">Page content not found. Add content in the admin panel.</p>';
-                }
-            } catch (error) {
-                console.error("Error loading page content:", error);
-                contentContainer.innerHTML = '<p class="text-center py-20 text-red-500">Error: Could not connect to the database.</p>';
-            }
-        }
-        function renderContent(blocks) {
-            contentContainer.innerHTML = '';
-            blocks.forEach(block => {
-                let blockHtml = '';
-                switch (block.type) {
-                    case 'text': blockHtml = `<section class="py-12 bg-gray-800"><div class="container mx-auto px-6 prose prose-invert max-w-4xl">${block.htmlContent}</div></section>`; break;
-                    case 'image': blockHtml = `<section class="py-12"><div class="container mx-auto px-6"><img src="${block.imageUrl}" class="w-full max-w-4xl mx-auto rounded-lg shadow-lg"></div></section>`; break;
-                    case 'video': blockHtml = `<section class="py-12"><div class="container mx-auto px-6"><div class="relative mx-auto max-w-4xl" style="padding-top: 56.25%;"><iframe class="absolute top-0 left-0 w-full h-full rounded-lg" src="${block.videoUrl}" allowfullscreen></iframe></div></div></section>`; break;
-                }
-                contentContainer.innerHTML += blockHtml;
-            });
-        }
+    <script>
         function updateCartCount() {
             const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
             document.getElementById('cart-count').textContent = cart.reduce((total, item) => total + item.quantity, 0);
         }
-        document.getElementById('mobile-menu-button').addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('hidden'));
-        document.addEventListener('DOMContentLoaded', () => { updateCartCount(); loadPage(); });
+        document.getElementById('mobile-menu-button').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+        document.addEventListener('DOMContentLoaded', updateCartCount);
     </script>
 </body>
 </html>
+
