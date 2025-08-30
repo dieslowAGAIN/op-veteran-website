@@ -9,15 +9,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQHJ2KS6ZV"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZW9XEGYGKR"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-GQHJ2KS6ZV');
+      gtag('config', 'G-ZW9XEGYGKR');
     </script>
     
     <style>
+        body { font-family: 'Inter', sans-serif; }
         .nav-item { position: relative; }
         .dropdown { display: none; position: absolute; background-color: #1f2937; min-width: 160px; z-index: 1; border-radius: 0.5rem; }
         .nav-item:hover .dropdown { display: block; }
@@ -50,7 +51,7 @@
         </nav>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-             <!-- Mobile links can be dynamically generated or kept static -->
+             <!-- Mobile links -->
         </div>
     </header>
 
@@ -102,73 +103,73 @@
 
     <!-- Firebase SDK -->
     <script type="module">
-        const firebaseConfig = {// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyAznsT6i5H0DJ6-X2FK5ZuBOHwiP2vfgCQ",
-  authDomain: "opveteran-website-v2.firebaseapp.com",
-  projectId: "opveteran-website-v2",
-  storageBucket: "opveteran-website-v2.firebasestorage.app",
-  messagingSenderId: "759648723714",
-  appId: "1:759648723714:web:99d9a4b77e4e994a2fd81b",
-  measurementId: "G-ZW9XEGYGKR"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+        // IMPORTANT: Replace with your new Firebase project's configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAznsT6i5H0DJ6-X2FK5ZuBOHwiP2vfgCQ",
+            authDomain: "opveteran-website-v2.firebaseapp.com",
+            projectId: "opveteran-website-v2",
+            storageBucket: "opveteran-website-v2.appspot.com",
+            messagingSenderId: "759648723714",
+            appId: "1:759648723714:web:99d9a4b77e4e994a2fd81b",
+            measurementId: "G-ZW9XEGYGKR"
         };
+
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
+        
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const analytics = getAnalytics(app);
+
         const contentContainer = document.getElementById('content-container');
         const pageId = 'mental-health'; 
-        async function loadPage() {
+
+        async function loadPageContent() {
             try {
                 const settingsRef = doc(db, 'settings', 'global');
                 const settingsSnap = await getDoc(settingsRef);
                 if (settingsSnap.exists() && settingsSnap.data().fontFamily) {
                     document.body.style.fontFamily = settingsSnap.data().fontFamily;
                 }
+
                 const pageRef = doc(db, 'pages', pageId);
                 const pageSnap = await getDoc(pageRef);
+
                 if (pageSnap.exists()) {
                     renderContent(pageSnap.data().content || []);
                 } else {
-                    contentContainer.innerHTML = '<p class="text-center py-20">Page content not found. Add content in the admin panel.</p>';
+                    contentContainer.innerHTML = `<p class="text-center py-20">Page content not found. Please add content in the admin panel.</p>`;
                 }
             } catch (error) {
                 console.error("Error loading page content:", error);
-                contentContainer.innerHTML = '<p class="text-center py-20 text-red-500">Error: Could not connect to the database.</p>';
+                contentContainer.innerHTML = `<div class="text-center py-20 px-4"><p class="text-red-500 font-bold text-xl">Error: Could not connect to the database.</p><p class="text-gray-400 mt-2">Please ensure your Firebase configuration is correct and all required APIs are enabled.</p></div>`;
             }
         }
+
         function renderContent(blocks) {
             contentContainer.innerHTML = '';
             blocks.forEach(block => {
-                let blockHtml = '';
-                switch (block.type) {
-                    case 'text': blockHtml = `<section class="py-12 bg-gray-800"><div class="container mx-auto px-6 prose prose-invert max-w-4xl">${block.htmlContent}</div></section>`; break;
-                    case 'image': blockHtml = `<section class="py-12"><div class="container mx-auto px-6"><img src="${block.imageUrl}" class="w-full max-w-4xl mx-auto rounded-lg shadow-lg"></div></section>`; break;
-                    case 'video': blockHtml = `<section class="py-12"><div class="container mx-auto px-6"><div class="relative mx-auto max-w-4xl" style="padding-top: 56.25%;"><iframe class="absolute top-0 left-0 w-full h-full rounded-lg" src="${block.videoUrl}" allowfullscreen></iframe></div></div></section>`; break;
+                if (block.type === 'html') {
+                    contentContainer.innerHTML += block.htmlContent;
                 }
-                contentContainer.innerHTML += blockHtml;
             });
         }
+
         function updateCartCount() {
             const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
             document.getElementById('cart-count').textContent = cart.reduce((total, item) => total + item.quantity, 0);
         }
-        document.getElementById('mobile-menu-button').addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('hidden'));
-        document.addEventListener('DOMContentLoaded', () => { updateCartCount(); loadPage(); });
+
+        document.getElementById('mobile-menu-button').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+            loadPageContent();
+        });
     </script>
 </body>
 </html>
+
