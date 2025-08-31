@@ -14,7 +14,7 @@
         .nav-item:hover .dropdown { display: block; }
         .dropdown a { color: white; padding: 12px 16px; text-decoration: none; display: block; }
         .dropdown a:hover { background-color: #374151; }
-        section { scroll-margin-top: 80px; }
+        section { scroll-margin-top: 80px; /* Offset for sticky header */ }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
@@ -35,13 +35,13 @@
                 <a href="index.html" class="hover:text-yellow-400 transition">Home</a>
                 <!-- The Organization Dropdown -->
                 <div class="nav-item">
-                    <a href="#" class="hover:text-yellow-400 transition">The Organization <i class="fas fa-chevron-down fa-xs"></i></a>
+                    <a href="#financials" class="hover:text-yellow-400 transition">The Organization <i class="fas fa-chevron-down fa-xs"></i></a>
                     <div class="dropdown">
-                        <a href="index.html#financials">Financials</a>
-                        <a href="index.html#in-the-media">In The Media</a>
-                        <a href="index.html#meet-the-team">Meet The Team</a>
-                        <a href="index.html#partnerships">Partnerships</a>
-                        <a href="index.html#contact-us">Contact Us</a>
+                        <a href="#financials">Financials</a>
+                        <a href="#in-the-media">In The Media</a>
+                        <a href="#meet-the-team">Meet The Team</a>
+                        <a href="#partnerships">Partnerships</a>
+                        <a href="#contact-us">Contact Us</a>
                     </div>
                 </div>
                 <a href="garrison-retreats.html" class="hover:text-yellow-400 transition">Garrison Retreats</a>
@@ -133,6 +133,128 @@
                 </div>
             </div>
         </section>
+
+        <!-- Financials Section -->
+        <section id="financials" class="py-20 bg-gray-900">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold mb-4">O.P. Veteran Financials</h2>
+                <p class="text-gray-400 mb-2">O.P. Veteran is a 501(c)(3) non-profit corporation.</p>
+                <p class="text-gray-400 mb-8 font-mono">EIN: 81-4477452</p>
+                <a href="https://apps.irs.gov/app/eos/" target="_blank" rel="noopener noreferrer" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-8 rounded-full text-lg transition duration-300 inline-block">
+                    View on IRS.gov <i class="fas fa-external-link-alt fa-xs ml-2"></i>
+                </a>
+                <div class="grid md:grid-cols-2 gap-12 mt-16 max-w-5xl mx-auto">
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-xl"><img src="https://i.imgur.com/xJ2Jd8p.png" alt="2020 & 2021 Finances" class="rounded-md w-full"></div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-xl"><img src="https://i.imgur.com/6oV3v7M.png" alt="2022 & 2023 Finances" class="rounded-md w-full"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- In The Media Section -->
+        <section id="in-the-media" class="py-20 bg-gray-800">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12">In The Media</h2>
+                <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                    <div class="bg-gray-900 rounded-lg shadow-xl overflow-hidden">
+                        <div class="relative pt-[56.25%]"><iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 text-yellow-400">Example Media Feature</h3>
+                            <p class="text-gray-400">A brief description of the news story, interview, or event shown in the video.</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-900 rounded-lg shadow-xl overflow-hidden">
+                        <div class="relative pt-[56.25%]"><iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/o-YBDTqX_ZU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 text-yellow-400">Another Feature Story</h3>
+                            <p class="text-gray-400">This section can highlight the positive impact and recognition O.P. Veteran has received.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Meet The Team Section -->
+        <section id="meet-the-team" class="py-20 bg-gray-900">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12">Meet The Team</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
+                    <div class="bg-gray-800 rounded-lg shadow-xl text-center p-8 transform hover:scale-105 transition-transform duration-300">
+                        <img src="https://placehold.co/200x200/374151/FFFFFF?text=Photo" alt="Team Member Photo" class="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-yellow-400">
+                        <h3 class="text-2xl font-bold mb-1">Jane Doe</h3>
+                        <h4 class="text-yellow-400 font-semibold mb-3">Founder & CEO</h4>
+                        <p class="text-gray-400 text-sm">A short bio about the team member, their background, their passion for the mission, and their role within the organization.</p>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg shadow-xl text-center p-8 transform hover:scale-105 transition-transform duration-300">
+                        <img src="https://placehold.co/200x200/374151/FFFFFF?text=Photo" alt="Team Member Photo" class="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-yellow-400">
+                        <h3 class="text-2xl font-bold mb-1">John Smith</h3>
+                        <h4 class="text-yellow-400 font-semibold mb-3">Director of Operations</h4>
+                        <p class="text-gray-400 text-sm">A short bio about the team member, their background, their passion for the mission, and their role within the organization.</p>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg shadow-xl text-center p-8 transform hover:scale-105 transition-transform duration-300">
+                        <img src="https://placehold.co/200x200/374151/FFFFFF?text=Photo" alt="Team Member Photo" class="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-yellow-400">
+                        <h3 class="text-2xl font-bold mb-1">Emily Jones</h3>
+                        <h4 class="text-yellow-400 font-semibold mb-3">Community Outreach</h4>
+                        <p class="text-gray-400 text-sm">A short bio about the team member, their background, their passion for the mission, and their role within the organization.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partnerships Section -->
+        <section id="partnerships" class="py-20 bg-gray-800">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12">Our Partners</h2>
+                <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                    <div class="bg-gray-900 rounded-lg shadow-xl p-8 flex flex-col sm:flex-row items-center gap-8">
+                        <img src="https://placehold.co/150x150/374151/FFFFFF?text=Logo" alt="Partner Logo" class="w-32 h-32 rounded-lg object-contain flex-shrink-0">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2 text-yellow-400">Partner Organization</h3>
+                            <p class="text-gray-400 mb-4">A brief bio about the partner organization and how they support the veteran community and our mission.</p>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="text-yellow-500 hover:text-yellow-400 font-bold transition duration-300">Visit Website <i class="fas fa-arrow-right fa-xs ml-1"></i></a>
+                        </div>
+                    </div>
+                    <div class="bg-gray-900 rounded-lg shadow-xl p-8 flex flex-col sm:flex-row items-center gap-8">
+                        <img src="https://placehold.co/150x150/374151/FFFFFF?text=Logo" alt="Partner Logo" class="w-32 h-32 rounded-lg object-contain flex-shrink-0">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2 text-yellow-400">Another Partner Inc.</h3>
+                            <p class="text-gray-400 mb-4">A brief bio about the partner organization and how they support the veteran community and our mission.</p>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="text-yellow-500 hover:text-yellow-400 font-bold transition duration-300">Visit Website <i class="fas fa-arrow-right fa-xs ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Us Section -->
+        <section id="contact-us" class="py-20 bg-gray-900">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <h2 class="text-4xl font-bold mb-4">Contact Us</h2>
+                <p class="text-gray-400 mb-8">Questions or comments? Get in touch and we’ll be happy to help.</p>
+                <form id="contact-form" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-400 mb-1">Name</label>
+                            <input type="text" id="name" class="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-400 mb-1">Email *</label>
+                            <input type="email" id="email" required class="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-gray-400 mb-1">Phone number</label>
+                        <input type="tel" id="phone" class="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                    </div>
+                    <div>
+                        <label for="comment" class="block text-sm font-medium text-gray-400 mb-1">Comment</label>
+                        <textarea id="comment" rows="5" class="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500"></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg transition duration-300 border border-gray-500">Send</button>
+                    </div>
+                </form>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
@@ -185,6 +307,18 @@
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
         document.addEventListener('DOMContentLoaded', updateCartCount);
+        // Contact Form
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const comment = document.getElementById('comment').value;
+            const mailtoEmail = "your-email@example.com"; // CHANGE THIS
+            const subject = `Contact Form Submission from ${name}`;
+            let body = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nComment:\n${comment}`;
+            window.location.href = `mailto:${mailtoEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        });
     </script>
 </body>
 </html>
