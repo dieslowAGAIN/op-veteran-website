@@ -7,45 +7,105 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .nav-item { position: relative; }
+        .dropdown { display: none; position: absolute; background-color: #1f2937; min-width: 160px; z-index: 1; border-radius: 0.5rem; margin-top: 0.5rem; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); }
+        .nav-item:hover .dropdown { display: block; }
+        .dropdown a { color: white; padding: 12px 16px; text-decoration: none; display: block; }
+        .dropdown a:hover { background-color: #374151; }
+    </style>
 </head>
 <body class="bg-gray-900 text-white">
 
     <!-- Header & Navigation -->
     <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
-         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-white">O.P. Veteran</a>
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="index.html" class="flex-shrink-0">
+                <svg class="h-16 w-auto" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 5 L95 27.5 L95 72.5 L50 95 L5 72.5 L5 27.5 Z" stroke="#FBBF24" stroke-width="4"/>
+                    <text x="50" y="45" font-family="Inter, sans-serif" font-size="24" fill="white" text-anchor="middle" font-weight="bold">OP</text>
+                    <text x="50" y="70" font-family="Inter, sans-serif" font-size="12" fill="#9CA3AF" text-anchor="middle">VETERAN</text>
+                </svg>
+            </a>
+            <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-6">
-                <a href="index.html" class="hover:text-yellow-400">Home</a>
-                <a href="garrison-retreats.html" class="hover:text-yellow-400">Garrison Retreats</a>
-                <a href="get-involved.html" class="hover:text-yellow-400">Get Involved</a>
-                <a href="mental-health.html" class="hover:text-yellow-400">Mental Health</a>
-                <a href="op-vetfest.html" class="hover:text-yellow-400">O.P. Vetfest</a>
-                <a href="volunteer.html" class="hover:text-yellow-400">Volunteer</a>
-                <a href="store.html" class="hover:text-yellow-400">Store</a>
-                <a href="calendar.html" class="hover:text-yellow-400">Calendar</a>
-                <a href="#" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-full">Donate</a>
-                <a href="checkout.html" class="relative text-xl text-yellow-400">
-                    <i class="fas fa-shopping-cart"></i>
+                <a href="index.html" class="hover:text-yellow-400 transition">Home</a>
+                <div class="nav-item">
+                    <a href="#" class="hover:text-yellow-400 transition">The Organization <i class="fas fa-chevron-down fa-xs"></i></a>
+                    <div class="dropdown">
+                        <a href="index.html#financials">Financials</a>
+                        <a href="index.html#in-the-media">In The Media</a>
+                        <a href="index.html#meet-the-team">Meet The Team</a>
+                        <a href="index.html#partnerships">Partnerships</a>
+                        <a href="index.html#contact-us">Contact Us</a>
+                    </div>
+                </div>
+                <a href="garrison-retreats.html" class="hover:text-yellow-400 transition">Garrison Retreats</a>
+                <div class="nav-item">
+                    <a href="get-involved.html" class="hover:text-yellow-400 transition">Get Involved <i class="fas fa-chevron-down fa-xs"></i></a>
+                     <div class="dropdown">
+                        <a href="get-involved.html#game-night">Game Night</a>
+                        <a href="get-involved.html#sponsorships">Sponsorships</a>
+                        <a href="get-involved.html#thirsty-thursday">Thirsty Thursday</a>
+                    </div>
+                </div>
+                <a href="mental-health.html" class="hover:text-yellow-400 transition">Mental Health</a>
+                <a href="op-vetfest.html" class="hover:text-yellow-400 transition">O.P. Vetfest</a>
+                <a href="volunteer.html" class="hover:text-yellow-400 transition">Volunteer</a>
+                <div class="nav-item">
+                    <a href="store.html" class="hover:text-yellow-400 transition">Store <i class="fas fa-chevron-down fa-xs"></i></a>
+                     <div class="dropdown">
+                        <a href="store.html#all-products">All Products</a>
+                        <a href="store.html#apparel">Apparel</a>
+                        <a href="store.html#gear">Gear</a>
+                    </div>
+                </div>
+                <a href="calendar.html" class="hover:text-yellow-400 transition">Calendar</a>
+            </div>
+            <!-- Right Icons -->
+            <div class="hidden md:flex items-center space-x-5">
+                 <a href="#" class="text-gray-400 hover:text-yellow-400 transition"><i class="fas fa-search fa-lg"></i></a>
+                 <a href="#" class="text-gray-400 hover:text-yellow-400 transition"><i class="fas fa-user fa-lg"></i></a>
+                 <a href="checkout.html" class="relative text-yellow-400">
+                    <i class="fas fa-shopping-cart fa-lg"></i>
                     <span id="cart-count" class="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
                 </a>
             </div>
+            <!-- Mobile Menu Button -->
             <button id="mobile-menu-button" class="md:hidden flex items-center"><i class="fas fa-bars text-2xl"></i></button>
         </nav>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-             <!-- Mobile links -->
+             <a href="index.html" class="block py-2 hover:text-yellow-400">Home</a>
+            <a href="garrison-retreats.html" class="block py-2 hover:text-yellow-400">Garrison Retreats</a>
+            <a href="get-involved.html" class="block py-2 hover:text-yellow-400">Get Involved</a>
+            <a href="mental-health.html" class="block py-2 hover:text-yellow-400">Mental Health</a>
+            <a href="op-vetfest.html" class="block py-2 hover:text-yellow-400">O.P. Vetfest</a>
+            <a href="volunteer.html" class="block py-2 hover:text-yellow-400">Volunteer</a>
+            <a href="store.html" class="block py-2 hover:text-yellow-400">Store</a>
+            <a href="calendar.html" class="block py-2 hover:text-yellow-400">Calendar</a>
+            <hr class="my-2 border-gray-700">
+            <a href="#" class="block py-2 hover:text-yellow-400">Login</a>
+            <a href="checkout.html" class="block py-2 text-yellow-400">Cart</a>
         </div>
     </header>
 
     <main>
         <section class="py-20">
             <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-center mb-12">Shopping Cart</h2>
-                <div id="cart-items" class="max-w-4xl mx-auto bg-gray-800 rounded-lg shadow-xl p-8">
-                    <!-- Cart items will be generated here -->
+                <h2 class="text-4xl font-bold text-center mb-12">Your Cart</h2>
+                <div id="cart-items-container" class="max-w-3xl mx-auto bg-gray-800 rounded-lg shadow-xl p-8">
+                    <!-- Cart items will be displayed here -->
                 </div>
-                <div id="checkout-section" class="max-w-4xl mx-auto mt-8 text-right">
-                    <!-- Totals and checkout button will be generated here -->
+                <div id="payment-placeholder" class="max-w-3xl mx-auto text-center mt-8 bg-gray-800 p-8 rounded-lg">
+                    <h3 class="text-2xl font-bold mb-4">Proceed to Payment</h3>
+                    <p class="text-gray-400 mb-6">Payment integration will be added here. Please click the button below to simulate checkout.</p>
+                    <div id="paypal-button-container">
+                         <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">Pay with PayPal (Placeholder)</button>
+                    </div>
+                     <p class="text-sm text-gray-500 mt-4">This is a placeholder. No real transaction will be made.</p>
                 </div>
             </div>
         </section>
@@ -97,28 +157,19 @@
             const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
             document.getElementById('cart-count').textContent = cart.reduce((total, item) => total + item.quantity, 0);
         }
-        document.getElementById('mobile-menu-button').addEventListener('click', () => {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        });
-        
-        // --- Checkout Logic ---
-        function renderCheckout() {
-            const cartItemsContainer = document.getElementById('cart-items');
-            const checkoutSection = document.getElementById('checkout-section');
+        function displayCart() {
             const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-
+            const container = document.getElementById('cart-items-container');
             if (cart.length === 0) {
-                cartItemsContainer.innerHTML = '<p class="text-center text-gray-400">Your cart is empty.</p>';
-                checkoutSection.innerHTML = '';
+                container.innerHTML = '<p class="text-center text-gray-400">Your cart is empty.</p>';
+                document.getElementById('payment-placeholder').style.display = 'none';
                 return;
             }
-
+            let total = 0;
             let itemsHtml = '<div class="space-y-4">';
-            let subtotal = 0;
-
             cart.forEach(item => {
                 const itemTotal = item.price * item.quantity;
-                subtotal += itemTotal;
+                total += itemTotal;
                 itemsHtml += `
                     <div class="flex justify-between items-center border-b border-gray-700 pb-2">
                         <div>
@@ -129,21 +180,21 @@
                     </div>
                 `;
             });
-            itemsHtml += '</div>';
-            cartItemsContainer.innerHTML = itemsHtml;
-
-            checkoutSection.innerHTML = `
-                <p class="text-2xl font-bold mb-4">Total: $${subtotal.toFixed(2)}</p>
-                <div class="bg-yellow-500 text-gray-900 p-4 rounded-lg text-center">
-                    <p class="font-bold">Payment integration is coming soon.</p>
-                    <p class="text-sm">To complete your purchase, please contact us.</p>
+            itemsHtml += `
+                <div class="flex justify-between items-center pt-4 font-bold text-xl">
+                    <p>Total:</p>
+                    <p>$${total.toFixed(2)}</p>
                 </div>
             `;
+            itemsHtml += '</div>';
+            container.innerHTML = itemsHtml;
         }
-
+        document.getElementById('mobile-menu-button').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
         document.addEventListener('DOMContentLoaded', () => {
             updateCartCount();
-            renderCheckout();
+            displayCart();
         });
     </script>
 </body>

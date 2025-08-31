@@ -7,33 +7,90 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .nav-item { position: relative; }
+        .dropdown { display: none; position: absolute; background-color: #1f2937; min-width: 160px; z-index: 1; border-radius: 0.5rem; margin-top: 0.5rem; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); }
+        .nav-item:hover .dropdown { display: block; }
+        .dropdown a { color: white; padding: 12px 16px; text-decoration: none; display: block; }
+        .dropdown a:hover { background-color: #374151; }
+        .prose-invert a { color: #fbbd24; }
+        .prose-invert a:hover { color: #f59e0b; }
+    </style>
 </head>
 <body class="bg-gray-900 text-white">
 
     <!-- Header & Navigation -->
     <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-white">O.P. Veteran</a>
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="index.html" class="flex-shrink-0">
+                <svg class="h-16 w-auto" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 5 L95 27.5 L95 72.5 L50 95 L5 72.5 L5 27.5 Z" stroke="#FBBF24" stroke-width="4"/>
+                    <text x="50" y="45" font-family="Inter, sans-serif" font-size="24" fill="white" text-anchor="middle" font-weight="bold">OP</text>
+                    <text x="50" y="70" font-family="Inter, sans-serif" font-size="12" fill="#9CA3AF" text-anchor="middle">VETERAN</text>
+                </svg>
+            </a>
+            <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-6">
-                <a href="index.html" class="hover:text-yellow-400">Home</a>
-                <a href="garrison-retreats.html" class="hover:text-yellow-400">Garrison Retreats</a>
-                <a href="get-involved.html" class="hover:text-yellow-400">Get Involved</a>
-                <a href="mental-health.html" class="hover:text-yellow-400">Mental Health</a>
-                <a href="op-vetfest.html" class="hover:text-yellow-400">O.P. Vetfest</a>
-                <a href="volunteer.html" class="hover:text-yellow-400">Volunteer</a>
-                <a href="store.html" class="hover:text-yellow-400">Store</a>
-                <a href="calendar.html" class="hover:text-yellow-400">Calendar</a>
-                <a href="#" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-full">Donate</a>
-                <a href="checkout.html" class="relative text-xl hover:text-yellow-400">
-                    <i class="fas fa-shopping-cart"></i>
+                <a href="index.html" class="hover:text-yellow-400 transition">Home</a>
+                <div class="nav-item">
+                    <a href="#" class="hover:text-yellow-400 transition">The Organization <i class="fas fa-chevron-down fa-xs"></i></a>
+                    <div class="dropdown">
+                        <a href="index.html#financials">Financials</a>
+                        <a href="index.html#in-the-media">In The Media</a>
+                        <a href="index.html#meet-the-team">Meet The Team</a>
+                        <a href="index.html#partnerships">Partnerships</a>
+                        <a href="index.html#contact-us">Contact Us</a>
+                    </div>
+                </div>
+                <a href="garrison-retreats.html" class="hover:text-yellow-400 transition">Garrison Retreats</a>
+                <div class="nav-item">
+                    <a href="get-involved.html" class="hover:text-yellow-400 transition">Get Involved <i class="fas fa-chevron-down fa-xs"></i></a>
+                     <div class="dropdown">
+                        <a href="get-involved.html#game-night">Game Night</a>
+                        <a href="get-involved.html#sponsorships">Sponsorships</a>
+                        <a href="get-involved.html#thirsty-thursday">Thirsty Thursday</a>
+                    </div>
+                </div>
+                <a href="mental-health.html" class="hover:text-yellow-400 transition">Mental Health</a>
+                <a href="op-vetfest.html" class="hover:text-yellow-400 transition">O.P. Vetfest</a>
+                <a href="volunteer.html" class="hover:text-yellow-400 transition">Volunteer</a>
+                <div class="nav-item">
+                    <a href="store.html" class="hover:text-yellow-400 transition">Store <i class="fas fa-chevron-down fa-xs"></i></a>
+                     <div class="dropdown">
+                        <a href="store.html#all-products">All Products</a>
+                        <a href="store.html#apparel">Apparel</a>
+                        <a href="store.html#gear">Gear</a>
+                    </div>
+                </div>
+                <a href="calendar.html" class="hover:text-yellow-400 transition">Calendar</a>
+            </div>
+            <!-- Right Icons -->
+            <div class="hidden md:flex items-center space-x-5">
+                 <a href="#" class="text-gray-400 hover:text-yellow-400 transition"><i class="fas fa-search fa-lg"></i></a>
+                 <a href="#" class="text-gray-400 hover:text-yellow-400 transition"><i class="fas fa-user fa-lg"></i></a>
+                 <a href="checkout.html" class="relative text-gray-400 hover:text-yellow-400 transition">
+                    <i class="fas fa-shopping-cart fa-lg"></i>
                     <span id="cart-count" class="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
                 </a>
             </div>
+            <!-- Mobile Menu Button -->
             <button id="mobile-menu-button" class="md:hidden flex items-center"><i class="fas fa-bars text-2xl"></i></button>
         </nav>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-             <!-- Mobile links -->
+             <a href="index.html" class="block py-2 hover:text-yellow-400">Home</a>
+            <a href="garrison-retreats.html" class="block py-2 hover:text-yellow-400">Garrison Retreats</a>
+            <a href="get-involved.html" class="block py-2 hover:text-yellow-400">Get Involved</a>
+            <a href="mental-health.html" class="block py-2 hover:text-yellow-400">Mental Health</a>
+            <a href="op-vetfest.html" class="block py-2 hover:text-yellow-400">O.P. Vetfest</a>
+            <a href="volunteer.html" class="block py-2 hover:text-yellow-400">Volunteer</a>
+            <a href="store.html" class="block py-2 hover:text-yellow-400">Store</a>
+            <a href="calendar.html" class="block py-2 hover:text-yellow-400">Calendar</a>
+            <hr class="my-2 border-gray-700">
+            <a href="#" class="block py-2 hover:text-yellow-400">Login</a>
+            <a href="checkout.html" class="block py-2 hover:text-yellow-400">Cart</a>
         </div>
     </header>
 
@@ -41,21 +98,49 @@
         <section class="py-20">
             <div class="container mx-auto px-6 max-w-4xl prose prose-invert">
                 <h1>Privacy Policy for O.P. Veteran</h1>
-                <p><strong>Last Updated:</strong> August 29, 2025</p>
-                <p>O.P. Veteran ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website.</p>
+                <p><strong>Last Updated:</strong> August 31, 2025</p>
+                <p>O.P. Veteran ("we," "our," or "us"), a 501(c)(3) non-profit organization, is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, donate, or participate in our events.</p>
                 
-                <h2>Information We Collect</h2>
-                <p>We may collect personal information such as your name, email address, and phone number when you fill out a contact form, sign up for an event, or make a donation.</p>
-                
-                <!-- Full privacy policy text should be added here -->
-                
-                <h2>Use of Your Information</h2>
+                <h2>1. Information We Collect</h2>
+                <p>We may collect information about you in a variety of ways. The information we may collect on the Site includes:</p>
+                <h3>Personal Data</h3>
+                <p>Personally identifiable information, such as your name, shipping address, email address, and telephone number, and demographic information, such as your age, gender, hometown, and interests, that you voluntarily give to us when you register for an event or to volunteer, make a donation, or when you choose to participate in various activities related to the Site, such as online chat and message boards.</p>
+                <h3>Financial Data</h3>
+                <p>Financial information, such as data related to your payment method (e.g., valid credit card number, card brand, expiration date) that we may collect when you donate or purchase merchandise from our Site. We store only very limited, if any, financial information that we collect. Otherwise, all financial information is stored by our third-party payment processors (e.g., PayPal, Stripe), and you are encouraged to review their privacy policy and contact them directly for responses to your questions.</p>
+
+                <h2>2. Use of Your Information</h2>
                 <p>Having accurate information permits us to provide you with a smooth, efficient, and customized experience. Specifically, we may use information collected about you via the Site to:</p>
                 <ul>
                     <li>Process donations and event registrations.</li>
-                    <li>Email you regarding your account or order.</li>
+                    <li>Email you regarding your account, donation, or order.</li>
                     <li>Send you a newsletter or other information about our events and mission.</li>
+                    <li>Fulfill and manage purchases, orders, payments, and other transactions related to the Site.</li>
+                    <li>Monitor and analyze usage and trends to improve your experience with the Site.</li>
+                    <li>Notify you of updates to the Site.</li>
                 </ul>
+
+                <h2>3. Disclosure of Your Information</h2>
+                <p>We may share information we have collected about you in certain situations. Your information may be disclosed as follows:</p>
+                <h3>By Law or to Protect Rights</h3>
+                <p>If we believe the release of information about you is necessary to respond to legal process, to investigate or remedy potential violations of our policies, or to protect the rights, property, and safety of others, we may share your information as permitted or required by any applicable law, rule, or regulation.</p>
+                <h3>Third-Party Service Providers</h3>
+                <p>We may share your information with third parties that perform services for us or on our behalf, including payment processing, data analysis, email delivery, hosting services, customer service, and marketing assistance.</p>
+                
+                <h2>4. Security of Your Information</h2>
+                <p>We use administrative, technical, and physical security measures to help protect your personal information. While we have taken reasonable steps to secure the personal information you provide to us, please be aware that despite our efforts, no security measures are perfect or impenetrable, and no method of data transmission can be guaranteed against any interception or other type of misuse.</p>
+
+                <h2>5. Policy for Children</h2>
+                <p>We do not knowingly solicit information from or market to children under the age of 13. If you become aware of any data we have collected from children under age 13, please contact us using the contact information provided below.</p>
+                
+                <h2>6. Contact Us</h2>
+                <p>If you have questions or comments about this Privacy Policy, please contact us at:</p>
+                <p>
+                    O.P. Veteran<br>
+                    [Your Mailing Address]<br>
+                    [Your City, State, ZIP Code]<br>
+                    [Your Email Address]<br>
+                    [Your Phone Number]
+                </p>
             </div>
         </section>
     </main>
