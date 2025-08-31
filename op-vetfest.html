@@ -7,28 +7,73 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .nav-item { position: relative; }
+        .dropdown { display: none; position: absolute; background-color: #1f2937; min-width: 160px; z-index: 1; border-radius: 0.5rem; margin-top: 0.5rem; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); }
+        .nav-item:hover .dropdown { display: block; }
+        .dropdown a { color: white; padding: 12px 16px; text-decoration: none; display: block; }
+        .dropdown a:hover { background-color: #374151; }
+    </style>
 </head>
 <body class="bg-gray-900 text-white">
 
     <!-- Header & Navigation -->
     <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-white">O.P. Veteran</a>
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="index.html" class="flex-shrink-0">
+                <svg class="h-16 w-auto" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 5 L95 27.5 L95 72.5 L50 95 L5 72.5 L5 27.5 Z" stroke="#FBBF24" stroke-width="4"/>
+                    <text x="50" y="45" font-family="Inter, sans-serif" font-size="24" fill="white" text-anchor="middle" font-weight="bold">OP</text>
+                    <text x="50" y="70" font-family="Inter, sans-serif" font-size="12" fill="#9CA3AF" text-anchor="middle">VETERAN</text>
+                </svg>
+            </a>
+            <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-6">
-                <a href="index.html" class="hover:text-yellow-400">Home</a>
-                <a href="garrison-retreats.html" class="hover:text-yellow-400">Garrison Retreats</a>
-                <a href="get-involved.html" class="hover:text-yellow-400">Get Involved</a>
-                <a href="mental-health.html" class="hover:text-yellow-400">Mental Health</a>
+                <a href="index.html" class="hover:text-yellow-400 transition">Home</a>
+                <div class="nav-item">
+                    <a href="#" class="hover:text-yellow-400 transition">The Organization <i class="fas fa-chevron-down fa-xs"></i></a>
+                    <div class="dropdown">
+                        <a href="index.html#financials">Financials</a>
+                        <a href="index.html#in-the-media">In The Media</a>
+                        <a href="index.html#meet-the-team">Meet The Team</a>
+                        <a href="index.html#partnerships">Partnerships</a>
+                        <a href="index.html#contact-us">Contact Us</a>
+                    </div>
+                </div>
+                <a href="garrison-retreats.html" class="hover:text-yellow-400 transition">Garrison Retreats</a>
+                <div class="nav-item">
+                    <a href="get-involved.html" class="hover:text-yellow-400 transition">Get Involved <i class="fas fa-chevron-down fa-xs"></i></a>
+                     <div class="dropdown">
+                        <a href="get-involved.html#game-night">Game Night</a>
+                        <a href="get-involved.html#sponsorships">Sponsorships</a>
+                        <a href="get-involved.html#thirsty-thursday">Thirsty Thursday</a>
+                    </div>
+                </div>
+                <a href="mental-health.html" class="hover:text-yellow-400 transition">Mental Health</a>
                 <a href="op-vetfest.html" class="text-yellow-400">O.P. Vetfest</a>
-                <a href="volunteer.html" class="hover:text-yellow-400">Volunteer</a>
-                <a href="store.html" class="hover:text-yellow-400">Store</a>
-                <a href="calendar.html" class="hover:text-yellow-400">Calendar</a>
-                <a href="#" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-full">Donate</a>
-                <a href="checkout.html" class="relative text-xl hover:text-yellow-400">
-                    <i class="fas fa-shopping-cart"></i>
+                <a href="volunteer.html" class="hover:text-yellow-400 transition">Volunteer</a>
+                <div class="nav-item">
+                    <a href="store.html" class="hover:text-yellow-400 transition">Store <i class="fas fa-chevron-down fa-xs"></i></a>
+                     <div class="dropdown">
+                        <a href="store.html#all-products">All Products</a>
+                        <a href="store.html#apparel">Apparel</a>
+                        <a href="store.html#gear">Gear</a>
+                    </div>
+                </div>
+                <a href="calendar.html" class="hover:text-yellow-400 transition">Calendar</a>
+            </div>
+            <!-- Right Icons -->
+            <div class="hidden md:flex items-center space-x-5">
+                 <a href="#" class="text-gray-400 hover:text-yellow-400 transition"><i class="fas fa-search fa-lg"></i></a>
+                 <a href="#" class="text-gray-400 hover:text-yellow-400 transition"><i class="fas fa-user fa-lg"></i></a>
+                 <a href="checkout.html" class="relative text-gray-400 hover:text-yellow-400 transition">
+                    <i class="fas fa-shopping-cart fa-lg"></i>
                     <span id="cart-count" class="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
                 </a>
             </div>
+            <!-- Mobile Menu Button -->
             <button id="mobile-menu-button" class="md:hidden flex items-center"><i class="fas fa-bars text-2xl"></i></button>
         </nav>
         <!-- Mobile Menu -->
@@ -41,7 +86,9 @@
             <a href="volunteer.html" class="block py-2 hover:text-yellow-400">Volunteer</a>
             <a href="store.html" class="block py-2 hover:text-yellow-400">Store</a>
             <a href="calendar.html" class="block py-2 hover:text-yellow-400">Calendar</a>
-            <a href="#" class="block mt-2 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-full text-center">Donate</a>
+            <hr class="my-2 border-gray-700">
+            <a href="#" class="block py-2 hover:text-yellow-400">Login</a>
+            <a href="checkout.html" class="block py-2 hover:text-yellow-400">Cart</a>
         </div>
     </header>
 
