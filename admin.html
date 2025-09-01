@@ -286,16 +286,17 @@
         
         saveAllBtn.addEventListener('click', async () => {
             updateContentFromDOM(); 
-            const newOrder = Array.from(blocksContainer.querySelectorAll('.content-block')).map(el => {
-                 const originalIndex = parseInt(el.dataset.index, 10);
-                 const blockType = currentContent[originalIndex].type;
+            const newOrder = Array.from(blocksContainer.querySelectorAll('.content-block')).map((el, newIndex) => {
+                 const originalBlock = currentContent.find(b => b.originalIndex === parseInt(el.dataset.index)); // Find by an original index if you need to preserve data
+                 const blockType = el.querySelector('h4').textContent.toLowerCase().split(' ')[0];
+                 
                  let newBlockData = { type: blockType };
                  if (blockType === 'text') {
                      newBlockData.htmlContent = el.querySelector('textarea').value;
                  } else if (blockType === 'image') {
-                     newBlockData.imageUrl = el.querySelector('input').value;
+                     newBlockData.imageUrl = el.querySelector('input[type="text"]').value;
                  } else if (blockType === 'video') {
-                     newBlockData.videoUrl = el.querySelector('input').value;
+                     newBlockData.videoUrl = el.querySelector('input[type="text"]').value;
                  }
                  return newBlockData;
             });
@@ -316,7 +317,8 @@
         function makeBlocksDraggable() {
             const blocks = blocksContainer.querySelectorAll('.content-block');
             let draggedItem = null;
-            blocks.forEach(item => {
+            blocks.forEach((item, index) => {
+                item.dataset.index = index; // Ensure indexes are always fresh
                 item.addEventListener('dragstart', () => {
                     draggedItem = item;
                     setTimeout(() => item.classList.add('dragging'), 0);
