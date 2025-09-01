@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - O.P. Veteran</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+
+    <!-- Login Section -->
+    <div id="auth-container" class="max-w-md mx-auto mt-20 p-8 bg-gray-800 rounded-lg shadow-xl">
+        <h1 class="text-3xl font-bold text-center mb-6 text-yellow-400">Admin Login</h1>
+        <form id="login-form" class="space-y-4">
+            <input type="email" id="email" placeholder="Email" class="w-full bg-gray-700 p-3 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+            <input type="password" id="password" placeholder="Password" class="w-full bg-gray-700 p-3 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+            <button type="submit" class="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 rounded-lg transition">Login</button>
+        </form>
+        <p id="auth-error" class="text-red-500 mt-4 text-center"></p>
+    </div>
+
+    <!-- Admin Panel Section -->
+    <div id="admin-panel" class="hidden container mx-auto p-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-4xl font-bold text-yellow-400">Website Admin</h1>
+            <button id="logout-button" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Logout</button>
+        </div>
+
+        <!-- Page Selector -->
+        <div class="mb-8">
+            <label for="page-selector" class="block text-lg font-medium mb-2">Select a Page to Edit:</label>
+            <select id="page-selector" class="w-full bg-gray-700 p-3 rounded-lg border border-gray-600">
+                <option value="home">Home</option>
+                <option value="garrison-retreats">Garrison Retreats</option>
+                <option value="get-involved">Get Involved</option>
+                <option value="mental-health">Mental Health</option>
+                <option value="op-vetfest">O.P. Vetfest</option>
+                <option value="volunteer">Volunteer</option>
+                <option value="store">Store</option>
+                <option value="calendar">Calendar</option>
+                <option value="checkout">Checkout</option>
+                <option value="privacy-policy">Privacy Policy</option>
+            </select>
+        </div>
+
+        <!-- HTML Content Editor -->
+        <div class="bg-gray-800 p-6 rounded-lg">
+            <h2 class="text-2xl font-bold mb-4">Page Content (HTML)</h2>
+            <p class="text-gray-400 mb-4">You are editing the raw HTML content for the selected page. Be careful with your changes, as invalid HTML can break the page layout.</p>
+            <textarea id="html-editor" class="w-full h-96 bg-gray-900 p-4 rounded-lg border border-gray-600 font-mono text-sm"></textarea>
+            <button id="save-content-button" class="mt-4 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg">Save Page Content</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        const firebaseConfig = {
+            apiKey: "AIzaSyAznsT6i5H0DJ6-X2FK5ZuBOHwiP2vfgCQ",
+            authDomain: "opveteran-website-v2.firebaseapp.com",
+            projectId: "opveteran-website-v2",
+            storageBucket: "opveteran-website-v2.appspot.com",
+            messagingSenderId: "759648723714",
+            appId: "1:759648723714:web:99d9a4b77e4e994a2fd81b",
+            measurementId: "G-ZW9XEGYGKR"
+        };
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const authContainer = document.getElementById('auth-container');
+        const adminPanel = document.getElementById('admin-panel');
+        const loginForm = document.getElementById('login-form');
+        const authError = document.getElementById('auth-error');
+        const logoutButton = document.getElementById('logout-button');
+        const pageSelector = document.getElementById('page-selector');
+        const htmlEditor = document.getElementById('html-editor');
+        const saveContentButton = document.getElementById('save-content-button');
+
+        // Handle Authentication State
+        onAuthStateChanged(auth, user => {
+            if (user) {
+                authContainer.classList.add('hidden');
+                adminPanel.classList.remove('hidden');
+                loadPageContent();
+            } else {
+                authContainer.classList.remove('hidden');
+                adminPanel.classList.add('hidden');
+            }
+        });
+
+        // Handle Login
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            authError.textContent = '';
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+            } catch (error) {
+                authError.textContent = "Failed to login. Please check your email and password.";
+                console.error("Login Error:", error);
+            }
+        });
+
+        // Handle Logout
+        logoutButton.addEventListener('click', () => signOut(auth));
+
+        // Load Content into Editor
+        async function loadPageContent() {
+            const pageId = pageSelector.value;
+            if (!pageId) return;
+            htmlEditor.value = 'Loading...';
+            try {
+                const pageRef = doc(db, 'pages', pageId);
+                const pageSnap = await getDoc(pageRef);
+                if (pageSnap.exists()) {
+                    const contentArray = pageSnap.data().content;
+                    if (contentArray && contentArray.length > 0 && contentArray[0].type === 'html') {
+                        htmlEditor.value = contentArray[0].htmlContent;
+                    } else {
+                        htmlEditor.value = '<!-- No editable content found. Save new content to create it. -->';
+                    }
+                } else {
+                    htmlEditor.value = `<!-- No document found for page ID '${pageId}'. -->`;
+                }
+            } catch (error) {
+                console.error("Error loading content:", error);
+                htmlEditor.value = `Error loading content: ${error.message}`;
+            }
+        }
+
+        // Save Content to Firestore
+        saveContentButton.addEventListener('click', async () => {
+            const pageId = pageSelector.value;
+            if (!pageId) {
+                alert("Please select a page.");
+                return;
+            }
+            
+            const newContent = [{
+                type: 'html',
+                htmlContent: htmlEditor.value
+            }];
+
+            try {
+                const pageRef = doc(db, 'pages', pageId);
+                await setDoc(pageRef, { content: newContent });
+                alert(`Successfully saved content for the '${pageId}' page!`);
+            } catch (error) {
+                console.error("Error saving content:", error);
+                alert(`Failed to save content. Check the console for details.`);
+            }
+        });
+
+        // Event Listeners
+        pageSelector.addEventListener('change', loadPageContent);
+
+    </script>
+</body>
+</html>
