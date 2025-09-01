@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - O.P. Veteran</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .content-block { border-left: 4px solid #ca8a04; }
-        .content-block-header { cursor: grab; }
-        .content-block.dragging { opacity: 0.5; background-color: #374151; }
+        .component-card { transition: all 0.2s ease-in-out; }
+        .component-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15); }
     </style>
 </head>
 <body class="bg-gray-900 text-white min-h-screen">
@@ -27,79 +26,43 @@
         <p id="auth-error" class="text-red-500 mt-4 text-center"></p>
     </div>
 
-    <!-- Admin Panel Section -->
+    <!-- Admin Panel -->
     <div id="admin-panel" class="hidden container mx-auto p-4 md:p-8">
-        <div class="flex flex-wrap justify-between items-center mb-8 gap-4">
-            <h1 class="text-4xl font-bold text-yellow-400">Website Admin</h1>
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-4xl font-bold text-yellow-400">Website Editor</h1>
             <button id="logout-button" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Logout</button>
         </div>
-
-        <!-- TABS -->
-        <div class="mb-8 border-b border-gray-700">
-            <nav class="flex space-x-4" aria-label="Tabs">
-                <button id="tab-content" class="tab-button text-yellow-400 border-b-2 border-yellow-400 px-3 py-2 text-lg font-medium">Page Content</button>
-                <button id="tab-settings" class="tab-button text-gray-400 hover:text-white px-3 py-2 text-lg font-medium">Global Settings</button>
-            </nav>
-        </div>
         
-        <!-- CONTENT EDITOR TAB -->
-        <div id="content-editor-tab">
-            <div class="mb-8">
-                <label for="page-selector" class="block text-lg font-medium mb-2">Select a Page to Edit:</label>
-                <select id="page-selector" class="w-full bg-gray-700 p-3 rounded-lg border border-gray-600">
-                    <option value="home">Home</option>
-                    <option value="garrison-retreats">Garrison Retreats</option>
-                    <option value="get-involved">Get Involved</option>
-                    <option value="mental-health">Mental Health</option>
-                    <option value="op-vetfest">O.P. Vetfest</option>
-                    <option value="volunteer">Volunteer</option>
-                    <option value="store">Store</option>
-                    <option value="calendar">Calendar</option>
-                    <option value="checkout">Checkout</option>
-                    <option value="privacy-policy">Privacy Policy</option>
-                </select>
-            </div>
-            
-            <div id="content-blocks-container" class="space-y-6">
-                <!-- Content blocks will be rendered here -->
-            </div>
-
-            <div class="mt-8 border-t border-gray-700 pt-6">
-                <h3 class="text-xl font-bold mb-4">Add New Block:</h3>
-                <div class="flex flex-wrap items-center gap-4">
-                    <button id="add-text-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"><i class="fas fa-paragraph mr-2"></i>Text / HTML</button>
-                    <button id="add-image-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg"><i class="fas fa-image mr-2"></i>Image</button>
-                    <button id="add-video-btn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg"><i class="fas fa-video mr-2"></i>Video</button>
-                    <button id="save-all-btn" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-6 rounded-lg ml-auto"><i class="fas fa-save mr-2"></i>Save All Changes</button>
-                </div>
-            </div>
+        <div class="mb-8">
+            <label for="page-selector" class="block text-lg font-medium mb-2">Editing Page:</label>
+            <select id="page-selector" class="w-full md:w-1/2 bg-gray-700 p-3 rounded-lg border border-gray-600">
+                <option value="home">Home</option>
+                <option value="garrison-retreats">Garrison Retreats</option>
+                <!-- Add other page options here -->
+            </select>
         </div>
 
-        <!-- SETTINGS TAB -->
-        <div id="settings-tab" class="hidden">
-            <div class="bg-gray-800 p-6 rounded-lg max-w-2xl">
-                <h2 class="text-2xl font-bold mb-6">Global Website Settings</h2>
-                <div class="space-y-6">
-                    <div>
-                        <label for="font-selector" class="block text-lg font-medium mb-2">Website Font Family</label>
-                        <select id="font-selector" class="w-full md:w-1/2 bg-gray-700 p-3 rounded-lg border border-gray-600">
-                            <option value="'Inter', sans-serif">Inter (Default)</option>
-                            <option value="'Roboto', sans-serif">Roboto</option>
-                            <option value="'Open Sans', sans-serif">Open Sans</option>
-                            <option value="'Lato', sans-serif">Lato</option>
-                            <option value="'Montserrat', sans-serif">Montserrat</option>
-                        </select>
-                    </div>
-                     <div>
-                        <label for="primary-color" class="block text-lg font-medium mb-2">Primary Accent Color</label>
-                        <input type="color" id="primary-color" value="#ca8a04" class="p-1 h-12 w-24 block bg-gray-700 border border-gray-600 cursor-pointer rounded-lg">
-                    </div>
-                </div>
-                <button id="save-settings-button" class="mt-8 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-6 rounded-lg">Save Global Settings</button>
+        <div id="page-components-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Component cards will be rendered here -->
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 hidden z-50">
+        <div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col">
+            <div class="flex justify-between items-center p-4 border-b border-gray-700">
+                <h2 id="modal-title" class="text-2xl font-bold text-yellow-400">Edit Component</h2>
+                <button id="close-modal-btn" class="text-gray-400 hover:text-white text-3xl">&times;</button>
+            </div>
+            <div id="modal-body" class="p-6 overflow-y-auto">
+                <!-- Editor fields will be injected here -->
+            </div>
+            <div class="p-4 bg-gray-900 border-t border-gray-700 flex justify-end">
+                <button id="save-component-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg">Save</button>
             </div>
         </div>
     </div>
-    
+
     <!-- Firebase SDK -->
     <script type="module">
         const firebaseConfig = {
@@ -130,8 +93,7 @@
             if (user) {
                 authContainer.classList.add('hidden');
                 adminPanel.classList.remove('hidden');
-                loadPageContent();
-                loadGlobalSettings();
+                loadPageComponents();
             } else {
                 authContainer.classList.remove('hidden');
                 adminPanel.classList.add('hidden');
@@ -140,223 +102,124 @@
 
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            authError.textContent = '';
+            authError.textContent = 'Logging in...';
             try {
-                await signInWithEmailAndPassword(auth, email, password);
+                await signInWithEmailAndPassword(auth, document.getElementById('email').value, document.getElementById('password').value);
+                authError.textContent = '';
             } catch (error) {
-                authError.textContent = "Failed to login. Check email and password.";
+                authError.textContent = "Login failed. Please check your credentials.";
             }
         });
 
         logoutButton.addEventListener('click', () => signOut(auth));
 
-        // --- TAB LOGIC ---
-        const contentTab = document.getElementById('tab-content');
-        const settingsTab = document.getElementById('tab-settings');
-        const contentEditorTab = document.getElementById('content-editor-tab');
-        const settingsEditorTab = document.getElementById('settings-tab');
-
-        contentTab.addEventListener('click', () => {
-            contentEditorTab.classList.remove('hidden');
-            settingsEditorTab.classList.add('hidden');
-            contentTab.classList.add('text-yellow-400', 'border-b-2', 'border-yellow-400');
-            settingsTab.classList.remove('text-yellow-400', 'border-b-2', 'border-yellow-400');
-            settingsTab.classList.add('text-gray-400');
-        });
-
-        settingsTab.addEventListener('click', () => {
-            settingsEditorTab.classList.remove('hidden');
-            contentEditorTab.classList.add('hidden');
-            settingsTab.classList.add('text-yellow-400', 'border-b-2', 'border-yellow-400');
-            contentTab.classList.remove('text-yellow-400', 'border-b-2', 'border-yellow-400');
-            contentTab.classList.add('text-gray-400');
-        });
-
-        // --- CONTENT EDITING LOGIC ---
+        // --- PAGE EDITOR LOGIC ---
         const pageSelector = document.getElementById('page-selector');
-        const blocksContainer = document.getElementById('content-blocks-container');
-        let currentContentBlocks = [];
+        const componentsContainer = document.getElementById('page-components-container');
+        let currentPageData = {};
 
-        async function loadPageContent() {
+        async function loadPageComponents() {
             const pageId = pageSelector.value;
-            blocksContainer.innerHTML = '<p>Loading...</p>';
+            componentsContainer.innerHTML = '<p>Loading components...</p>';
             try {
                 const pageRef = doc(db, 'pages', pageId);
                 const pageSnap = await getDoc(pageRef);
                 if (pageSnap.exists()) {
-                    currentContentBlocks = pageSnap.data().content || [];
-                    renderContentBlocks();
+                    currentPageData = pageSnap.data();
+                    renderComponentCards();
                 } else {
-                    currentContentBlocks = [];
-                    renderContentBlocks();
+                    componentsContainer.innerHTML = `<p>No data found for this page. Run the setup script.</p>`;
                 }
             } catch (error) {
-                blocksContainer.innerHTML = `<p class="text-red-500">Error loading content: ${error.message}</p>`;
+                componentsContainer.innerHTML = `<p class="text-red-500">Error loading page data: ${error.message}</p>`;
             }
         }
-
-        function renderContentBlocks() {
-            blocksContainer.innerHTML = '';
-            if (currentContentBlocks.length === 0) {
-                blocksContainer.innerHTML = '<p class="text-gray-400">No content for this page yet. Add a block to get started!</p>';
-            }
-            currentContentBlocks.forEach((block, index) => {
-                const blockEl = createBlockElement(block, index);
-                blocksContainer.appendChild(blockEl);
-            });
-            makeBlocksDraggable();
-        }
-
-        function createBlockElement(block, index) {
-            const div = document.createElement('div');
-            div.className = 'content-block bg-gray-800 p-4 rounded-lg shadow-md';
-            div.setAttribute('draggable', 'true');
-            div.dataset.index = index;
-
-            let contentHtml = '';
-            if (block.type === 'text') {
-                contentHtml = `<label class="block text-sm font-medium mb-1 text-gray-300">HTML Content</label><textarea class="w-full h-48 bg-gray-900 p-2 rounded border border-gray-600 font-mono text-sm">${block.htmlContent || ''}</textarea>`;
-            } else if (block.type === 'image') {
-                contentHtml = `
-                    <label class="block text-sm font-medium mb-1 text-gray-300">Image URL</label>
-                    <input type="text" value="${block.imageUrl || ''}" class="w-full bg-gray-700 p-2 rounded border border-gray-600 mb-2">
-                    <img src="${block.imageUrl || 'https://placehold.co/200x100/1f2937/FFFFFF?text=Preview'}" class="mt-2 max-w-xs rounded bg-gray-700">
-                `;
-            } else if (block.type === 'video') {
-                contentHtml = `
-                    <label class="block text-sm font-medium mb-1 text-gray-300">YouTube Embed URL</label>
-                    <input type="text" value="${block.videoUrl || ''}" class="w-full bg-gray-700 p-2 rounded border border-gray-600 mb-2">
-                    <div class="relative mt-2 aspect-video max-w-sm"><iframe class="absolute top-0 left-0 w-full h-full rounded" src="${block.videoUrl || ''}" allowfullscreen></iframe></div>
-                `;
-            }
-
-            div.innerHTML = `
-                <div class="content-block-header flex justify-between items-center mb-4 pb-2 border-b border-gray-700">
-                    <h4 class="font-bold text-lg text-yellow-400 capitalize flex items-center gap-2"><i class="fas fa-grip-vertical"></i> ${block.type} Block</h4>
-                    <button class="remove-btn text-gray-400 hover:text-red-500" data-index="${index}"><i class="fas fa-trash"></i></button>
-                </div>
-                <div>${contentHtml}</div>
-            `;
-            return div;
-        }
-
-        document.getElementById('add-text-btn').addEventListener('click', () => {
-            currentContentBlocks.push({ type: 'text', htmlContent: '<h2>New Text Block</h2>\n<p>Start editing here...</p>' });
-            renderContentBlocks();
-        });
-        document.getElementById('add-image-btn').addEventListener('click', () => {
-            currentContentBlocks.push({ type: 'image', imageUrl: 'https://placehold.co/1200x400/111827/FFFFFF?text=New+Image' });
-            renderContentBlocks();
-        });
-        document.getElementById('add-video-btn').addEventListener('click', () => {
-            currentContentBlocks.push({ type: 'video', videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ' });
-            renderContentBlocks();
-        });
         
-        blocksContainer.addEventListener('click', e => {
-            const removeBtn = e.target.closest('.remove-btn');
-            if (removeBtn) {
-                const index = parseInt(removeBtn.dataset.index, 10);
-                if (confirm('Are you sure you want to remove this block?')) {
-                    currentContentBlocks.splice(index, 1);
-                    renderContentBlocks();
-                }
-            }
-        });
-
-        document.getElementById('save-all-btn').addEventListener('click', async () => {
-            const newContent = Array.from(blocksContainer.querySelectorAll('.content-block')).map(el => {
-                const blockType = el.querySelector('h4').textContent.toLowerCase().includes('text') ? 'text' : (el.querySelector('h4').textContent.toLowerCase().includes('image') ? 'image' : 'video');
-                let blockData = { type: blockType };
-                if (blockType === 'text') {
-                    blockData.htmlContent = el.querySelector('textarea').value;
-                } else if (blockType === 'image') {
-                    blockData.imageUrl = el.querySelector('input').value;
-                } else if (blockType === 'video') {
-                    blockData.videoUrl = el.querySelector('input').value;
-                }
-                return blockData;
+        function renderComponentCards() {
+            componentsContainer.innerHTML = '';
+            Object.keys(currentPageData).forEach(componentKey => {
+                const component = currentPageData[componentKey];
+                const card = document.createElement('div');
+                card.className = 'component-card bg-gray-800 p-6 rounded-lg shadow-lg cursor-pointer';
+                card.dataset.key = componentKey;
+                
+                let preview = 'No preview available.';
+                if(component.title) preview = `<p class="text-gray-400">${component.title}</p>`;
+                if(component.heading) preview = `<p class="text-gray-400">${component.heading}</p>`;
+                
+                card.innerHTML = `
+                    <h3 class="text-xl font-bold text-yellow-400 mb-2 capitalize">${componentKey.replace(/([A-Z])/g, ' $1')}</h3>
+                    ${preview}
+                `;
+                card.addEventListener('click', () => openEditModal(componentKey));
+                componentsContainer.appendChild(card);
             });
+        }
+
+        pageSelector.addEventListener('change', loadPageComponents);
+
+        // --- MODAL LOGIC ---
+        const editModal = document.getElementById('edit-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const saveComponentBtn = document.getElementById('save-component-btn');
+        let currentEditingKey = null;
+
+        function openEditModal(componentKey) {
+            currentEditingKey = componentKey;
+            const componentData = currentPageData[componentKey];
+            modalTitle.textContent = `Edit ${componentKey.replace(/([A-Z])/g, ' $1')}`;
+            modalBody.innerHTML = ''; // Clear previous fields
+            
+            // Dynamically create form fields based on component data
+            Object.keys(componentData).forEach(fieldKey => {
+                const value = componentData[fieldKey];
+                
+                // Handle nested arrays (like pillars or team members)
+                if (Array.isArray(value)) {
+                     // We will add array editing later for simplicity
+                } else {
+                     const fieldDiv = document.createElement('div');
+                    fieldDiv.className = 'mb-4';
+                    
+                    let fieldInput = '';
+                    if (fieldKey.toLowerCase().includes('imageurl')) {
+                        fieldInput = `<label class="block text-sm font-medium mb-1 capitalize">${fieldKey.replace(/([A-Z])/g, ' $1')}</label>
+                                     <input type="text" data-key="${fieldKey}" value="${value}" class="w-full bg-gray-700 p-2 rounded border border-gray-600">
+                                     <img src="${value}" class="mt-2 max-w-xs rounded">`;
+                    } else {
+                        fieldInput = `<label class="block text-sm font-medium mb-1 capitalize">${fieldKey.replace(/([A-Z])/g, ' $1')}</label>
+                                     <input type="text" data-key="${fieldKey}" value="${value}" class="w-full bg-gray-700 p-2 rounded border border-gray-600">`;
+                    }
+                    fieldDiv.innerHTML = fieldInput;
+                    modalBody.appendChild(fieldDiv);
+                }
+            });
+            editModal.classList.remove('hidden');
+        }
+
+        closeModalBtn.addEventListener('click', () => editModal.classList.add('hidden'));
+
+        saveComponentBtn.addEventListener('click', async () => {
+             if (!currentEditingKey) return;
+             
+             const inputs = modalBody.querySelectorAll('input[data-key]');
+             inputs.forEach(input => {
+                 currentPageData[currentEditingKey][input.dataset.key] = input.value;
+             });
 
             const pageId = pageSelector.value;
             try {
-                await setDoc(doc(db, 'pages', pageId), { content: newContent });
-                alert(`Successfully saved content for the '${pageId}' page!`);
-                loadPageContent(); // Reload to confirm and refresh indexes
+                await setDoc(doc(db, 'pages', pageId), currentPageData);
+                alert('Component saved successfully!');
+                editModal.classList.add('hidden');
+                loadPageComponents(); // Refresh the cards
             } catch (error) {
-                alert(`Failed to save content. Error: ${error.message}`);
+                alert('Error saving component: ' + error.message);
             }
         });
 
-        pageSelector.addEventListener('change', loadPageContent);
-        
-        function makeBlocksDraggable() {
-            let draggedItem = null;
-            blocksContainer.querySelectorAll('.content-block').forEach(item => {
-                item.addEventListener('dragstart', () => {
-                    draggedItem = item;
-                    setTimeout(() => item.classList.add('dragging'), 0);
-                });
-                item.addEventListener('dragend', () => {
-                    if (draggedItem) draggedItem.classList.remove('dragging');
-                    draggedItem = null;
-                });
-            });
-            blocksContainer.addEventListener('dragover', e => {
-                e.preventDefault();
-                const afterElement = getDragAfterElement(blocksContainer, e.clientY);
-                if (draggedItem) {
-                    if (afterElement == null) {
-                        blocksContainer.appendChild(draggedItem);
-                    } else {
-                        blocksContainer.insertBefore(draggedItem, afterElement);
-                    }
-                }
-            });
-        }
-        
-        function getDragAfterElement(container, y) {
-            const draggableElements = [...container.querySelectorAll('.content-block:not(.dragging)')];
-            return draggableElements.reduce((closest, child) => {
-                const box = child.getBoundingClientRect();
-                const offset = y - box.top - box.height / 2;
-                if (offset < 0 && offset > closest.offset) {
-                    return { offset, element: child };
-                } else {
-                    return closest;
-                }
-            }, { offset: Number.NEGATIVE_INFINITY }).element;
-        }
-
-        // --- GLOBAL SETTINGS LOGIC ---
-        const fontSelector = document.getElementById('font-selector');
-        const colorPicker = document.getElementById('primary-color');
-        const saveSettingsBtn = document.getElementById('save-settings-button');
-        
-        async function loadGlobalSettings() {
-            try {
-                const settingsRef = doc(db, 'settings', 'global');
-                const settingsSnap = await getDoc(settingsRef);
-                if (settingsSnap.exists()) {
-                    const settings = settingsSnap.data();
-                    fontSelector.value = settings.fontFamily || "'Inter', sans-serif";
-                    colorPicker.value = settings.primaryColor || '#ca8a04';
-                }
-            } catch (error) { console.error("Could not load global settings:", error); }
-        }
-        
-        saveSettingsBtn.addEventListener('click', async () => {
-            const settings = {
-                fontFamily: fontSelector.value,
-                primaryColor: colorPicker.value
-            };
-            try {
-                await setDoc(doc(db, 'settings', 'global'), settings);
-                alert('Global settings saved successfully!');
-            } catch (error) { alert(`Error saving settings: ${error.message}`); }
-        });
     </script>
 </body>
 </html>
