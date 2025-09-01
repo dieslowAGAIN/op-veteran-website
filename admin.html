@@ -16,8 +16,8 @@
     <div id="auth-container" class="max-w-md mx-auto mt-20 p-8 bg-gray-800 rounded-lg shadow-xl">
         <h1 class="text-3xl font-bold text-center mb-6 text-yellow-400">Admin Login</h1>
         <form id="login-form" class="space-y-4">
-            <input type="email" id="email" placeholder="Email" class="w-full bg-gray-700 p-3 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-500">
-            <input type="password" id="password" placeholder="Password" class="w-full bg-gray-700 p-3 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+            <input type="email" id="email" placeholder="Email" class="w-full bg-gray-700 p-3 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-500" autocomplete="email">
+            <input type="password" id="password" placeholder="Password" class="w-full bg-gray-700 p-3 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-500" autocomplete="current-password">
             <button type="submit" class="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 rounded-lg transition">Login</button>
         </form>
         <p id="auth-error" class="text-red-500 mt-4 text-center"></p>
@@ -50,8 +50,8 @@
         <!-- HTML Content Editor -->
         <div class="bg-gray-800 p-6 rounded-lg">
             <h2 class="text-2xl font-bold mb-4">Page Content (HTML)</h2>
-            <p class="text-gray-400 mb-4">You are editing the raw HTML content for the selected page. Be careful with your changes, as invalid HTML can break the page layout.</p>
-            <textarea id="html-editor" class="w-full h-96 bg-gray-900 p-4 rounded-lg border border-gray-600 font-mono text-sm"></textarea>
+            <p class="text-gray-400 mb-4">You are editing the raw HTML content for the selected page's `<main>` section. Be careful, as invalid HTML can break the page layout.</p>
+            <textarea id="html-editor" class="w-full h-[60vh] bg-gray-900 p-4 rounded-lg border border-gray-600 font-mono text-sm"></textarea>
             <button id="save-content-button" class="mt-4 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg">Save Page Content</button>
         </div>
     </div>
@@ -85,7 +85,6 @@
         const htmlEditor = document.getElementById('html-editor');
         const saveContentButton = document.getElementById('save-content-button');
 
-        // Handle Authentication State
         onAuthStateChanged(auth, user => {
             if (user) {
                 authContainer.classList.add('hidden');
@@ -97,7 +96,6 @@
             }
         });
 
-        // Handle Login
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('email').value;
@@ -106,15 +104,13 @@
             try {
                 await signInWithEmailAndPassword(auth, email, password);
             } catch (error) {
-                authError.textContent = "Failed to login. Please check your email and password.";
-                console.error("Login Error:", error);
+                authError.textContent = "Failed to login. Check your email and password.";
             }
         });
 
-        // Handle Logout
         logoutButton.addEventListener('click', () => signOut(auth));
+        pageSelector.addEventListener('change', loadPageContent);
 
-        // Load Content into Editor
         async function loadPageContent() {
             const pageId = pageSelector.value;
             if (!pageId) return;
@@ -127,43 +123,29 @@
                     if (contentArray && contentArray.length > 0 && contentArray[0].type === 'html') {
                         htmlEditor.value = contentArray[0].htmlContent;
                     } else {
-                        htmlEditor.value = '<!-- No editable content found. Save new content to create it. -->';
+                        htmlEditor.value = '<!-- No content found. Add HTML and save. -->';
                     }
                 } else {
-                    htmlEditor.value = `<!-- No document found for page ID '${pageId}'. -->`;
+                    htmlEditor.value = `<!-- No document found for '${pageId}'. Save content to create it. -->`;
                 }
             } catch (error) {
-                console.error("Error loading content:", error);
                 htmlEditor.value = `Error loading content: ${error.message}`;
             }
         }
 
-        // Save Content to Firestore
         saveContentButton.addEventListener('click', async () => {
             const pageId = pageSelector.value;
-            if (!pageId) {
-                alert("Please select a page.");
-                return;
-            }
-            
-            const newContent = [{
-                type: 'html',
-                htmlContent: htmlEditor.value
-            }];
-
+            if (!pageId) return;
+            const newContent = [{ type: 'html', htmlContent: htmlEditor.value }];
             try {
                 const pageRef = doc(db, 'pages', pageId);
                 await setDoc(pageRef, { content: newContent });
                 alert(`Successfully saved content for the '${pageId}' page!`);
             } catch (error) {
-                console.error("Error saving content:", error);
-                alert(`Failed to save content. Check the console for details.`);
+                alert(`Failed to save content. Error: ${error.message}`);
             }
         });
-
-        // Event Listeners
-        pageSelector.addEventListener('change', loadPageContent);
-
     </script>
 </body>
 </html>
+
