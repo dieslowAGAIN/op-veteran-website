@@ -9,10 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .content-block { border-left: 4px solid #f59e0b; }
-        .content-block-header { cursor: grab; }
-        .content-block.dragging { opacity: 0.5; background-color: #374151; }
-        .drag-over { border-top: 2px dashed #f59e0b; }
+        .sidebar-link.active { background-color: #ca8a04; color: #1f2937; }
+        .content-block-item.active { background-color: #374151; }
     </style>
 </head>
 <body class="bg-gray-900 text-white min-h-screen">
@@ -29,76 +27,26 @@
     </div>
 
     <!-- Admin Panel Section -->
-    <div id="admin-panel" class="hidden container mx-auto p-4 md:p-8">
-        <div class="flex flex-wrap justify-between items-center mb-8 gap-4">
-            <h1 class="text-4xl font-bold text-yellow-400">Website Admin</h1>
-            <button id="logout-button" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Logout</button>
-        </div>
-
-        <!-- TABS -->
-        <div class="mb-8 border-b border-gray-700">
-            <nav class="flex space-x-4" aria-label="Tabs">
-                <button id="tab-content" class="tab-button text-yellow-400 border-b-2 border-yellow-400 px-3 py-2 text-lg font-medium">Page Content</button>
-                <button id="tab-settings" class="tab-button text-gray-400 hover:text-white px-3 py-2 text-lg font-medium">Global Settings</button>
+    <div id="admin-panel" class="hidden flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-1/4 bg-gray-800 p-6 flex flex-col">
+            <div class="flex-shrink-0">
+                <h1 class="text-3xl font-bold text-yellow-400 mb-8">Admin Menu</h1>
+            </div>
+            <nav id="sidebar-nav" class="flex-grow overflow-y-auto pr-2">
+                <!-- Links will be generated here -->
             </nav>
-        </div>
-        
-        <!-- CONTENT EDITOR TAB -->
-        <div id="content-editor-tab">
-            <div class="mb-8">
-                <label for="page-selector" class="block text-lg font-medium mb-2">Select a Page to Edit:</label>
-                <select id="page-selector" class="w-full bg-gray-700 p-3 rounded-lg border border-gray-600">
-                    <option value="home">Home</option>
-                    <option value="garrison-retreats">Garrison Retreats</option>
-                    <option value="get-involved">Get Involved</option>
-                    <option value="mental-health">Mental Health</option>
-                    <option value="op-vetfest">O.P. Vetfest</option>
-                    <option value="volunteer">Volunteer</option>
-                    <option value="store">Store</option>
-                    <option value="calendar">Calendar</option>
-                    <option value="checkout">Checkout</option>
-                    <option value="privacy-policy">Privacy Policy</option>
-                </select>
+            <div class="flex-shrink-0 mt-auto">
+                 <button id="logout-button" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg">Logout</button>
             </div>
-            
-            <div id="content-blocks-container" class="space-y-6">
-                <!-- Content blocks will be rendered here -->
-            </div>
+        </aside>
 
-            <div class="mt-8 border-t border-gray-700 pt-6">
-                <h3 class="text-xl font-bold mb-4">Add New Block:</h3>
-                <div class="flex flex-wrap items-center gap-4">
-                    <button id="add-text-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"><i class="fas fa-paragraph mr-2"></i>Text / HTML</button>
-                    <button id="add-image-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg"><i class="fas fa-image mr-2"></i>Image</button>
-                    <button id="add-video-btn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg"><i class="fas fa-video mr-2"></i>Video</button>
-                    <button id="save-all-btn" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-6 rounded-lg ml-auto"><i class="fas fa-save mr-2"></i>Save All Changes</button>
-                </div>
+        <!-- Main Content Area -->
+        <main class="w-3/4 p-10 overflow-y-auto">
+            <div id="editor-container">
+                <h2 class="text-4xl font-bold text-gray-500">Select an item from the sidebar to begin editing.</h2>
             </div>
-        </div>
-
-        <!-- SETTINGS TAB -->
-        <div id="settings-tab" class="hidden">
-            <div class="bg-gray-800 p-6 rounded-lg max-w-2xl">
-                <h2 class="text-2xl font-bold mb-6">Global Website Settings</h2>
-                <div class="space-y-6">
-                    <div>
-                        <label for="font-selector" class="block text-lg font-medium mb-2">Website Font Family</label>
-                        <select id="font-selector" class="w-full md:w-1/2 bg-gray-700 p-3 rounded-lg border border-gray-600">
-                            <option value="'Inter', sans-serif">Inter (Default)</option>
-                            <option value="'Roboto', sans-serif">Roboto</option>
-                            <option value="'Open Sans', sans-serif">Open Sans</option>
-                            <option value="'Lato', sans-serif">Lato</option>
-                            <option value="'Montserrat', sans-serif">Montserrat</option>
-                        </select>
-                    </div>
-                     <div>
-                        <label for="primary-color" class="block text-lg font-medium mb-2">Primary Accent Color</label>
-                        <input type="color" id="primary-color" value="#f59e0b" class="p-1 h-12 w-24 block bg-gray-700 border border-gray-600 cursor-pointer rounded-lg">
-                    </div>
-                </div>
-                <button id="save-settings-button" class="mt-8 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-6 rounded-lg">Save Global Settings</button>
-            </div>
-        </div>
+        </main>
     </div>
     
     <!-- Firebase SDK -->
@@ -114,7 +62,7 @@
         };
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
@@ -125,19 +73,21 @@
         const loginForm = document.getElementById('login-form');
         const authError = document.getElementById('auth-error');
         const logoutButton = document.getElementById('logout-button');
-        const pageSelector = document.getElementById('page-selector');
-        const blocksContainer = document.getElementById('content-blocks-container');
-        const saveAllBtn = document.getElementById('save-all-btn');
+        const sidebarNav = document.getElementById('sidebar-nav');
+        const editorContainer = document.getElementById('editor-container');
+        
+        let websiteData = {};
 
         onAuthStateChanged(auth, user => {
             if (user) {
                 authContainer.classList.add('hidden');
-                adminPanel.classList.remove('hidden');
-                loadPageContent();
-                loadGlobalSettings();
+                adminPanel.classList.remove('flex');
+                adminPanel.classList.add('flex');
+                loadAllData();
             } else {
                 authContainer.classList.remove('hidden');
                 adminPanel.classList.add('hidden');
+                adminPanel.classList.remove('flex');
             }
         });
 
@@ -155,236 +105,188 @@
 
         logoutButton.addEventListener('click', () => signOut(auth));
 
-        const contentTab = document.getElementById('tab-content');
-        const settingsTab = document.getElementById('tab-settings');
-        const contentEditorTab = document.getElementById('content-editor-tab');
-        const settingsEditorTab = document.getElementById('settings-tab');
-
-        contentTab.addEventListener('click', () => {
-            contentEditorTab.classList.remove('hidden');
-            settingsEditorTab.classList.add('hidden');
-            contentTab.classList.add('text-yellow-400', 'border-b-2', 'border-yellow-400');
-            settingsTab.classList.remove('text-yellow-400', 'border-b-2', 'border-yellow-400');
-            settingsTab.classList.add('text-gray-400');
-        });
-
-        settingsTab.addEventListener('click', () => {
-            settingsEditorTab.classList.remove('hidden');
-            contentEditorTab.classList.add('hidden');
-            settingsTab.classList.add('text-yellow-400', 'border-b-2', 'border-yellow-400');
-            contentTab.classList.remove('text-yellow-400', 'border-b-2', 'border-yellow-400');
-            contentTab.classList.add('text-gray-400');
-        });
-
-        let currentContent = [];
-
-        async function loadPageContent() {
-            const pageId = pageSelector.value;
-            blocksContainer.innerHTML = '<p>Loading content...</p>';
+        async function loadAllData() {
             try {
-                const pageRef = doc(db, 'pages', pageId);
-                const pageSnap = await getDoc(pageRef);
-                if (pageSnap.exists()) {
-                    currentContent = pageSnap.data().content || [];
-                    renderContentBlocks();
-                } else {
-                    currentContent = [];
-                    blocksContainer.innerHTML = '<p>No content found. Add a block to get started!</p>';
-                }
-            } catch (error) {
-                blocksContainer.innerHTML = `<p class="text-red-500">Error loading content: ${error.message}</p>`;
-            }
-        }
-
-        function renderContentBlocks() {
-            blocksContainer.innerHTML = '';
-            if (currentContent.length === 0) {
-                 blocksContainer.innerHTML = '<p>No content found for this page. Add a block to get started!</p>';
-            }
-            currentContent.forEach((block, index) => {
-                const blockEl = createBlockElement(block, index);
-                blocksContainer.appendChild(blockEl);
-            });
-            makeBlocksDraggable();
-        }
-        
-        function createBlockElement(block, index) {
-            const div = document.createElement('div');
-            div.className = 'content-block bg-gray-800 p-4 rounded-lg shadow-md';
-            div.setAttribute('draggable', 'true');
-            div.dataset.index = index;
-
-            let contentHtml = '';
-            if (block.type === 'text') {
-                contentHtml = `<textarea class="w-full h-48 bg-gray-900 p-2 rounded border border-gray-600 font-mono text-sm">${block.htmlContent || ''}</textarea>`;
-            } else if (block.type === 'image') {
-                contentHtml = `
-                    <label class="block text-sm font-medium mb-1">Image URL:</label>
-                    <input type="text" value="${block.imageUrl || ''}" class="w-full bg-gray-700 p-2 rounded border border-gray-600 mb-2">
-                    <img src="${block.imageUrl || 'https://placehold.co/200x100'}" class="mt-2 max-w-xs rounded">
-                `;
-            } else if (block.type === 'video') {
-                contentHtml = `
-                     <label class="block text-sm font-medium mb-1">YouTube Embed URL:</label>
-                    <input type="text" value="${block.videoUrl || ''}" class="w-full bg-gray-700 p-2 rounded border border-gray-600 mb-2">
-                    <div class="relative mt-2" style="padding-top: 56.25%;"><iframe class="absolute top-0 left-0 w-full h-full" src="${block.videoUrl || ''}" allowfullscreen></iframe></div>
-                `;
-            }
-
-            div.innerHTML = `
-                <div class="content-block-header flex justify-between items-center mb-4 pb-2 border-b border-gray-700">
-                    <h4 class="font-bold text-lg text-yellow-400 capitalize">${block.type} Block</h4>
-                    <div>
-                        <button class="remove-btn text-gray-400 hover:text-red-500" data-index="${index}"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>
-                <div>${contentHtml}</div>
-            `;
-            return div;
-        }
-
-        document.getElementById('add-text-btn').addEventListener('click', () => {
-            currentContent.push({ type: 'text', htmlContent: '<h2>New Text Block</h2>\n<p>Start editing here...</p>' });
-            renderContentBlocks();
-        });
-        document.getElementById('add-image-btn').addEventListener('click', () => {
-            currentContent.push({ type: 'image', imageUrl: 'https://placehold.co/800x400' });
-            renderContentBlocks();
-        });
-        document.getElementById('add-video-btn').addEventListener('click', () => {
-            currentContent.push({ type: 'video', videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ' });
-            renderContentBlocks();
-        });
-
-        blocksContainer.addEventListener('click', e => {
-            if (e.target.closest('.remove-btn')) {
-                const index = parseInt(e.target.closest('.remove-btn').dataset.index, 10);
-                if (confirm('Are you sure you want to remove this block?')) {
-                    currentContent.splice(index, 1);
-                    renderContentBlocks();
-                }
-            }
-        });
-        
-        function updateContentFromDOM() {
-            const newContentArray = [];
-            blocksContainer.querySelectorAll('.content-block').forEach((el, newIndex) => {
-                const originalIndex = parseInt(el.dataset.index, 10);
-                const blockType = currentContent[originalIndex].type;
-                let newBlockData = { type: blockType };
-                if (blockType === 'text') {
-                    newBlockData.htmlContent = el.querySelector('textarea').value;
-                } else if (blockType === 'image') {
-                    newBlockData.imageUrl = el.querySelector('input').value;
-                } else if (blockType === 'video') {
-                    newBlockData.videoUrl = el.querySelector('input').value;
-                }
-                newContentArray.push(newBlockData);
-            });
-            currentContent = newContentArray;
-        }
-        
-        saveAllBtn.addEventListener('click', async () => {
-            updateContentFromDOM(); 
-            const newOrder = Array.from(blocksContainer.querySelectorAll('.content-block')).map((el, newIndex) => {
-                 const originalBlock = currentContent.find(b => b.originalIndex === parseInt(el.dataset.index)); // Find by an original index if you need to preserve data
-                 const blockType = el.querySelector('h4').textContent.toLowerCase().split(' ')[0];
-                 
-                 let newBlockData = { type: blockType };
-                 if (blockType === 'text') {
-                     newBlockData.htmlContent = el.querySelector('textarea').value;
-                 } else if (blockType === 'image') {
-                     newBlockData.imageUrl = el.querySelector('input[type="text"]').value;
-                 } else if (blockType === 'video') {
-                     newBlockData.videoUrl = el.querySelector('input[type="text"]').value;
-                 }
-                 return newBlockData;
-            });
-            currentContent = newOrder;
-
-            const pageId = pageSelector.value;
-            try {
-                const pageRef = doc(db, 'pages', pageId);
-                await setDoc(pageRef, { content: currentContent });
-                alert(`Successfully saved content for the '${pageId}' page!`);
-            } catch (error) {
-                alert(`Failed to save content. Error: ${error.message}`);
-            }
-        });
-
-        pageSelector.addEventListener('change', loadPageContent);
-
-        function makeBlocksDraggable() {
-            const blocks = blocksContainer.querySelectorAll('.content-block');
-            let draggedItem = null;
-            blocks.forEach((item, index) => {
-                item.dataset.index = index; // Ensure indexes are always fresh
-                item.addEventListener('dragstart', () => {
-                    draggedItem = item;
-                    setTimeout(() => item.classList.add('dragging'), 0);
+                // Load Pages
+                const pagesSnapshot = await getDocs(collection(db, 'pages'));
+                websiteData.pages = {};
+                pagesSnapshot.forEach(doc => {
+                    websiteData.pages[doc.id] = doc.data();
                 });
-                item.addEventListener('dragend', () => {
-                    draggedItem.classList.remove('dragging');
-                    draggedItem = null;
-                });
-            });
 
-            blocksContainer.addEventListener('dragover', e => {
-                e.preventDefault();
-                const afterElement = getDragAfterElement(blocksContainer, e.clientY);
-                const currentlyDragged = document.querySelector('.dragging');
-                if (afterElement == null) {
-                    blocksContainer.appendChild(currentlyDragged);
-                } else {
-                    blocksContainer.insertBefore(currentlyDragged, afterElement);
-                }
-            });
-        }
-        
-        function getDragAfterElement(container, y) {
-            const draggableElements = [...container.querySelectorAll('.content-block:not(.dragging)')];
-            return draggableElements.reduce((closest, child) => {
-                const box = child.getBoundingClientRect();
-                const offset = y - box.top - box.height / 2;
-                if (offset < 0 && offset > closest.offset) {
-                    return { offset: offset, element: child };
-                } else {
-                    return closest;
-                }
-            }, { offset: Number.NEGATIVE_INFINITY }).element;
-        }
-
-        const fontSelector = document.getElementById('font-selector');
-        const colorPicker = document.getElementById('primary-color');
-        const saveSettingsBtn = document.getElementById('save-settings-button');
-        
-        async function loadGlobalSettings() {
-            try {
-                const settingsRef = doc(db, 'settings', 'global');
-                const settingsSnap = await getDoc(settingsRef);
+                // Load Global Settings
+                const settingsSnap = await getDoc(doc(db, 'settings', 'global'));
                 if (settingsSnap.exists()) {
-                    const settings = settingsSnap.data();
-                    fontSelector.value = settings.fontFamily || "'Inter', sans-serif";
-                    colorPicker.value = settings.primaryColor || '#f59e0b';
+                    websiteData.settings = settingsSnap.data();
+                } else {
+                    websiteData.settings = { fontFamily: "'Inter', sans-serif", primaryColor: '#f59e0b' };
                 }
+                
+                buildSidebar();
+
             } catch (error) {
-                console.error("Could not load global settings:", error);
+                editorContainer.innerHTML = `<h2 class="text-2xl text-red-500">Error: Could not load website data. ${error.message}</h2>`;
             }
         }
         
-        saveSettingsBtn.addEventListener('click', async () => {
-            const settings = {
-                fontFamily: fontSelector.value,
-                primaryColor: colorPicker.value
-            };
-            try {
-                const settingsRef = doc(db, 'settings', 'global');
-                await setDoc(settingsRef, settings);
-                alert('Global settings saved successfully!');
-            } catch (error) {
-                alert(`Error saving settings: ${error.message}`);
+        function buildSidebar() {
+            sidebarNav.innerHTML = '';
+            
+            // Global Settings Link
+            const settingsDiv = document.createElement('div');
+            settingsDiv.innerHTML = `<button data-type="settings" class="sidebar-link w-full text-left font-bold text-xl py-3 px-4 rounded-lg transition hover:bg-gray-700">Global Settings</button>`;
+            sidebarNav.appendChild(settingsDiv);
+
+            // Pages Section
+            const pagesHeader = document.createElement('h3');
+            pagesHeader.className = "text-gray-400 font-bold mt-6 mb-2 uppercase text-sm";
+            pagesHeader.textContent = "Pages";
+            sidebarNav.appendChild(pagesHeader);
+
+            Object.keys(websiteData.pages).forEach(pageId => {
+                const pageData = websiteData.pages[pageId];
+                const pageContainer = document.createElement('div');
+                
+                const pageButton = document.createElement('button');
+                pageButton.className = 'sidebar-link w-full text-left font-bold text-lg py-2 px-4 rounded-lg transition hover:bg-gray-700 flex justify-between items-center';
+                pageButton.dataset.pageId = pageId;
+                pageButton.innerHTML = `<span>${pageId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</span> <i class="fas fa-chevron-down fa-xs transition-transform"></i>`;
+                
+                const blocksList = document.createElement('div');
+                blocksList.className = 'pl-4 mt-2 hidden space-y-1';
+
+                (pageData.content || []).forEach((block, index) => {
+                    const blockItem = document.createElement('button');
+                    blockItem.className = 'content-block-item w-full text-left text-gray-300 py-2 px-3 rounded-md hover:bg-gray-600 block';
+                    blockItem.dataset.pageId = pageId;
+                    blockItem.dataset.blockIndex = index;
+                    blockItem.textContent = `Block ${index + 1}: ${block.type}`;
+                    blocksList.appendChild(blockItem);
+                });
+
+                pageButton.addEventListener('click', () => {
+                    blocksList.classList.toggle('hidden');
+                    pageButton.querySelector('i').classList.toggle('rotate-180');
+                });
+                
+                pageContainer.appendChild(pageButton);
+                pageContainer.appendChild(blocksList);
+                sidebarNav.appendChild(pageContainer);
+            });
+            
+            // Add event listeners for all links
+            sidebarNav.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    sidebarNav.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    if (button.dataset.type === 'settings') {
+                        renderSettingsEditor();
+                    } else if(button.dataset.blockIndex) {
+                        const { pageId, blockIndex } = button.dataset;
+                        renderBlockEditor(pageId, parseInt(blockIndex));
+                    }
+                });
+            });
+        }
+        
+        function renderSettingsEditor() {
+            editorContainer.innerHTML = `
+                <div class="bg-gray-800 p-8 rounded-lg">
+                    <h2 class="text-3xl font-bold mb-8">Global Website Settings</h2>
+                    <div class="space-y-6">
+                        <div>
+                            <label for="font-selector" class="block text-lg font-medium mb-2">Website Font Family</label>
+                            <select id="font-selector" class="w-full md:w-1/2 bg-gray-700 p-3 rounded-lg border border-gray-600">
+                                <option value="'Inter', sans-serif">Inter</option>
+                                <option value="'Roboto', sans-serif">Roboto</option>
+                                <option value="'Open Sans', sans-serif">Open Sans</option>
+                                <option value="'Lato', sans-serif">Lato</option>
+                                <option value="'Montserrat', sans-serif">Montserrat</option>
+                            </select>
+                        </div>
+                         <div>
+                            <label for="primary-color" class="block text-lg font-medium mb-2">Primary Accent Color</label>
+                            <input type="color" id="primary-color" class="p-1 h-12 w-24 block bg-gray-700 border border-gray-600 cursor-pointer rounded-lg">
+                        </div>
+                    </div>
+                    <button id="save-settings-btn" class="mt-8 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-6 rounded-lg">Save Global Settings</button>
+                </div>`;
+                
+            document.getElementById('font-selector').value = websiteData.settings.fontFamily;
+            document.getElementById('primary-color').value = websiteData.settings.primaryColor;
+            
+            document.getElementById('save-settings-btn').addEventListener('click', async () => {
+                const newSettings = {
+                    fontFamily: document.getElementById('font-selector').value,
+                    primaryColor: document.getElementById('primary-color').value,
+                };
+                try {
+                    await setDoc(doc(db, 'settings', 'global'), newSettings);
+                    websiteData.settings = newSettings; // Update local data
+                    alert('Settings saved successfully!');
+                } catch(error) {
+                    alert('Error saving settings: ' + error.message);
+                }
+            });
+        }
+
+        function renderBlockEditor(pageId, index) {
+            const block = websiteData.pages[pageId].content[index];
+            let editorHtml = '';
+
+             if (block.type === 'text') {
+                editorHtml = `<h3 class="text-xl font-bold mb-4">Text / HTML Content</h3><textarea id="block-editor-textarea" class="w-full h-96 bg-gray-900 p-4 rounded border border-gray-600 font-mono text-sm">${block.htmlContent || ''}</textarea>`;
+            } else if (block.type === 'image') {
+                editorHtml = `<h3 class="text-xl font-bold mb-4">Image Block</h3><label class="block text-sm font-medium mb-1">Image URL:</label><input id="block-editor-input" type="text" value="${block.imageUrl || ''}" class="w-full bg-gray-700 p-2 rounded border border-gray-600"><img src="${block.imageUrl || 'https://placehold.co/200x100'}" class="mt-4 max-w-sm rounded">`;
+            } else if (block.type === 'video') {
+                 editorHtml = `<h3 class="text-xl font-bold mb-4">Video Block</h3><label class="block text-sm font-medium mb-1">YouTube Embed URL:</label><input id="block-editor-input" type="text" value="${block.videoUrl || ''}" class="w-full bg-gray-700 p-2 rounded border border-gray-600"><div class="relative mt-4" style="padding-top: 56.25%;"><iframe class="absolute top-0 left-0 w-full h-full" src="${block.videoUrl || ''}" allowfullscreen></iframe></div>`;
             }
-        });
+
+            editorContainer.innerHTML = `
+                <div class="bg-gray-800 p-8 rounded-lg">
+                    <h2 class="text-3xl font-bold mb-6">Editing Block ${index + 1} on <span class="capitalize text-yellow-400">${pageId.replace(/-/g, ' ')}</span></h2>
+                    ${editorHtml}
+                    <div class="mt-6 flex justify-between items-center">
+                        <button id="save-block-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg">Save Block</button>
+                        <button id="remove-block-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Delete Block</button>
+                    </div>
+                </div>`;
+            
+            document.getElementById('save-block-btn').addEventListener('click', async () => {
+                const content = block.type === 'text' ? document.getElementById('block-editor-textarea').value : document.getElementById('block-editor-input').value;
+                 if (block.type === 'text') {
+                    websiteData.pages[pageId].content[index].htmlContent = content;
+                } else if (block.type === 'image') {
+                    websiteData.pages[pageId].content[index].imageUrl = content;
+                } else if (block.type === 'video') {
+                    websiteData.pages[pageId].content[index].videoUrl = content;
+                }
+                
+                try {
+                    await setDoc(doc(db, 'pages', pageId), websiteData.pages[pageId]);
+                    alert('Block saved successfully!');
+                    loadAllData(); // Refresh sidebar and data
+                } catch(error) {
+                     alert('Error saving block: ' + error.message);
+                }
+            });
+            
+            document.getElementById('remove-block-btn').addEventListener('click', async () => {
+                if (confirm('Are you sure you want to delete this block? This cannot be undone.')) {
+                    websiteData.pages[pageId].content.splice(index, 1);
+                     try {
+                        await setDoc(doc(db, 'pages', pageId), websiteData.pages[pageId]);
+                        alert('Block deleted successfully!');
+                        editorContainer.innerHTML = '<h2 class="text-2xl text-gray-500">Select another item to edit.</h2>';
+                        loadAllData(); // Refresh sidebar and data
+                    } catch(error) {
+                         alert('Error deleting block: ' + error.message);
+                    }
+                }
+            });
+        }
     </script>
 </body>
 </html>
