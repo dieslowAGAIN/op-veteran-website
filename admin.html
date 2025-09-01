@@ -152,8 +152,8 @@
                 card.dataset.key = componentKey;
                 
                 let preview = 'No preview available.';
-                if(component.title) preview = `<p class="text-gray-400">${component.title}</p>`;
-                if(component.heading) preview = `<p class="text-gray-400">${component.heading}</p>`;
+                if(component && component.title) preview = `<p class="text-gray-400">${component.title}</p>`;
+                else if(component && component.heading) preview = `<p class="text-gray-400">${component.heading}</p>`;
                 
                 card.innerHTML = `
                     <h3 class="text-xl font-bold text-yellow-400 mb-2 capitalize">${componentKey.replace(/([A-Z])/g, ' $1')}</h3>
@@ -184,12 +184,11 @@
                 const value = componentData[fieldKey];
                 
                 if (Array.isArray(value)) {
-                    // Handle arrays of objects (like team members, pillars, partners)
                     let arrayHtml = `<h4 class="text-lg font-semibold mb-2 capitalize">${fieldKey.replace(/([A-Z])/g, ' $1')}</h4>`;
                     value.forEach((item, index) => {
-                        arrayHtml += `<div class="bg-gray-700 p-3 rounded mb-3">`;
+                        arrayHtml += `<div class="bg-gray-700 p-3 rounded mb-3 border-l-4 border-gray-600">`;
                         Object.keys(item).forEach(itemKey => {
-                            arrayHtml += `<label class="block text-sm font-medium mt-2">${itemKey}</label>
+                            arrayHtml += `<label class="block text-sm font-medium mt-2 capitalize">${itemKey}</label>
                                          <input type="text" data-array-key="${fieldKey}" data-index="${index}" data-item-key="${itemKey}" value="${item[itemKey]}" class="w-full bg-gray-600 p-2 rounded border border-gray-500">`;
                         });
                         arrayHtml += `</div>`;
@@ -200,10 +199,12 @@
                     fieldDiv.className = 'mb-4';
                     let fieldInput = `<label class="block text-sm font-medium mb-1 capitalize">${fieldKey.replace(/([A-Z])/g, ' $1')}</label>`;
                     
-                    if (fieldKey.toLowerCase().includes('imageurl')) {
-                        fieldInput += `<input type="text" data-key="${fieldKey}" value="${value}" class="w-full bg-gray-700 p-2 rounded border border-gray-600">
-                                     <img src="${value}" class="mt-2 max-w-xs rounded bg-gray-700">`;
-                    } else if (value.length > 80) {
+                    if (typeof value === 'string' && value.startsWith('https://')) {
+                        fieldInput += `<input type="text" data-key="${fieldKey}" value="${value}" class="w-full bg-gray-700 p-2 rounded border border-gray-600">`;
+                         if (fieldKey.toLowerCase().includes('imageurl')) {
+                             fieldInput += `<img src="${value}" class="mt-2 max-w-xs rounded bg-gray-700">`;
+                         }
+                    } else if (typeof value === 'string' && value.length > 80) {
                          fieldInput += `<textarea data-key="${fieldKey}" class="w-full h-32 bg-gray-700 p-2 rounded border border-gray-600">${value}</textarea>`;
                     } else {
                         fieldInput += `<input type="text" data-key="${fieldKey}" value="${value}" class="w-full bg-gray-700 p-2 rounded border border-gray-600">`;
@@ -220,12 +221,10 @@
         saveComponentBtn.addEventListener('click', async () => {
              if (!currentEditingKey) return;
              
-             // Update simple fields
              modalBody.querySelectorAll('input[data-key], textarea[data-key]').forEach(input => {
                  currentPageData[currentEditingKey][input.dataset.key] = input.value;
              });
 
-             // Update array fields
              modalBody.querySelectorAll('input[data-array-key]').forEach(input => {
                 const { arrayKey, index, itemKey } = input.dataset;
                 currentPageData[currentEditingKey][arrayKey][parseInt(index)][itemKey] = input.value;
@@ -236,7 +235,7 @@
                 await setDoc(doc(db, 'pages', pageId), currentPageData);
                 alert('Component saved successfully!');
                 editModal.classList.add('hidden');
-                renderComponentCards(); // Refresh the cards
+                renderComponentCards(); 
             } catch (error) {
                 alert('Error saving component: ' + error.message);
             }
