@@ -129,7 +129,6 @@
         const blocksContainer = document.getElementById('content-blocks-container');
         const saveAllBtn = document.getElementById('save-all-btn');
 
-        // --- AUTHENTICATION ---
         onAuthStateChanged(auth, user => {
             if (user) {
                 authContainer.classList.add('hidden');
@@ -156,7 +155,6 @@
 
         logoutButton.addEventListener('click', () => signOut(auth));
 
-        // --- TAB SWITCHING ---
         const contentTab = document.getElementById('tab-content');
         const settingsTab = document.getElementById('tab-settings');
         const contentEditorTab = document.getElementById('content-editor-tab');
@@ -165,21 +163,19 @@
         contentTab.addEventListener('click', () => {
             contentEditorTab.classList.remove('hidden');
             settingsEditorTab.classList.add('hidden');
-            contentTab.classList.add('text-yellow-400', 'border-yellow-400');
-            settingsTab.classList.remove('text-yellow-400', 'border-yellow-400');
+            contentTab.classList.add('text-yellow-400', 'border-b-2', 'border-yellow-400');
+            settingsTab.classList.remove('text-yellow-400', 'border-b-2', 'border-yellow-400');
             settingsTab.classList.add('text-gray-400');
         });
 
         settingsTab.addEventListener('click', () => {
             settingsEditorTab.classList.remove('hidden');
             contentEditorTab.classList.add('hidden');
-            settingsTab.classList.add('text-yellow-400', 'border-yellow-400');
-            contentTab.classList.remove('text-yellow-400', 'border-yellow-400');
+            settingsTab.classList.add('text-yellow-400', 'border-b-2', 'border-yellow-400');
+            contentTab.classList.remove('text-yellow-400', 'border-b-2', 'border-yellow-400');
             contentTab.classList.add('text-gray-400');
         });
 
-
-        // --- CONTENT EDITING ---
         let currentContent = [];
 
         async function loadPageContent() {
@@ -248,7 +244,7 @@
         }
 
         document.getElementById('add-text-btn').addEventListener('click', () => {
-            currentContent.push({ type: 'text', htmlContent: '<h2>New Text Block</h2><p>Start editing here...</p>' });
+            currentContent.push({ type: 'text', htmlContent: '<h2>New Text Block</h2>\n<p>Start editing here...</p>' });
             renderContentBlocks();
         });
         document.getElementById('add-image-btn').addEventListener('click', () => {
@@ -271,25 +267,40 @@
         });
         
         function updateContentFromDOM() {
-             const blockElements = blocksContainer.querySelectorAll('.content-block');
-             const newContentArray = [];
-             blockElements.forEach(el => {
-                 const index = parseInt(el.dataset.index, 10);
-                 const blockData = currentContent[index];
-                 if(blockData.type === 'text') {
-                     blockData.htmlContent = el.querySelector('textarea').value;
-                 } else if (blockData.type === 'image') {
-                     blockData.imageUrl = el.querySelector('input').value;
-                 } else if (blockData.type === 'video') {
-                     blockData.videoUrl = el.querySelector('input').value;
-                 }
-                 newContentArray.push(blockData);
-             });
-             currentContent = newContentArray;
+            const newContentArray = [];
+            blocksContainer.querySelectorAll('.content-block').forEach((el, newIndex) => {
+                const originalIndex = parseInt(el.dataset.index, 10);
+                const blockType = currentContent[originalIndex].type;
+                let newBlockData = { type: blockType };
+                if (blockType === 'text') {
+                    newBlockData.htmlContent = el.querySelector('textarea').value;
+                } else if (blockType === 'image') {
+                    newBlockData.imageUrl = el.querySelector('input').value;
+                } else if (blockType === 'video') {
+                    newBlockData.videoUrl = el.querySelector('input').value;
+                }
+                newContentArray.push(newBlockData);
+            });
+            currentContent = newContentArray;
         }
-
+        
         saveAllBtn.addEventListener('click', async () => {
-            updateContentFromDOM(); // First, save changes from inputs into our JS array
+            updateContentFromDOM(); 
+            const newOrder = Array.from(blocksContainer.querySelectorAll('.content-block')).map(el => {
+                 const originalIndex = parseInt(el.dataset.index, 10);
+                 const blockType = currentContent[originalIndex].type;
+                 let newBlockData = { type: blockType };
+                 if (blockType === 'text') {
+                     newBlockData.htmlContent = el.querySelector('textarea').value;
+                 } else if (blockType === 'image') {
+                     newBlockData.imageUrl = el.querySelector('input').value;
+                 } else if (blockType === 'video') {
+                     newBlockData.videoUrl = el.querySelector('input').value;
+                 }
+                 return newBlockData;
+            });
+            currentContent = newOrder;
+
             const pageId = pageSelector.value;
             try {
                 const pageRef = doc(db, 'pages', pageId);
@@ -302,42 +313,29 @@
 
         pageSelector.addEventListener('change', loadPageContent);
 
-        // --- DRAG AND DROP ---
         function makeBlocksDraggable() {
             const blocks = blocksContainer.querySelectorAll('.content-block');
             let draggedItem = null;
-
             blocks.forEach(item => {
                 item.addEventListener('dragstart', () => {
                     draggedItem = item;
                     setTimeout(() => item.classList.add('dragging'), 0);
                 });
-
                 item.addEventListener('dragend', () => {
-                    setTimeout(() => {
-                        draggedItem.classList.remove('dragging');
-                        draggedItem = null;
-                    }, 0);
-                });
-
-                item.addEventListener('dragover', e => {
-                    e.preventDefault();
-                    const afterElement = getDragAfterElement(blocksContainer, e.clientY);
-                    if (afterElement == null) {
-                        blocksContainer.appendChild(draggedItem);
-                    } else {
-                        blocksContainer.insertBefore(draggedItem, afterElement);
-                    }
+                    draggedItem.classList.remove('dragging');
+                    draggedItem = null;
                 });
             });
-            
-            blocksContainer.addEventListener('drop', () => {
-                const newOrder = Array.from(blocksContainer.querySelectorAll('.content-block')).map(el => {
-                    const originalIndex = parseInt(el.dataset.index, 10);
-                    return currentContent[originalIndex];
-                });
-                currentContent = newOrder;
-                renderContentBlocks(); // Re-render to update indexes and maintain consistency
+
+            blocksContainer.addEventListener('dragover', e => {
+                e.preventDefault();
+                const afterElement = getDragAfterElement(blocksContainer, e.clientY);
+                const currentlyDragged = document.querySelector('.dragging');
+                if (afterElement == null) {
+                    blocksContainer.appendChild(currentlyDragged);
+                } else {
+                    blocksContainer.insertBefore(currentlyDragged, afterElement);
+                }
             });
         }
         
@@ -354,7 +352,6 @@
             }, { offset: Number.NEGATIVE_INFINITY }).element;
         }
 
-        // --- GLOBAL SETTINGS ---
         const fontSelector = document.getElementById('font-selector');
         const colorPicker = document.getElementById('primary-color');
         const saveSettingsBtn = document.getElementById('save-settings-button');
@@ -386,7 +383,6 @@
                 alert(`Error saving settings: ${error.message}`);
             }
         });
-        
     </script>
 </body>
 </html>
